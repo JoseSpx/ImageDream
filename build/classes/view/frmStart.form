@@ -130,6 +130,8 @@
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnOpenImageMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnOpenImageMouseReleased"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenImageActionPerformed"/>
           </Events>
         </Component>

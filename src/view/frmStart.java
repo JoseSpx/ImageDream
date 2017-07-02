@@ -1,5 +1,9 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -73,6 +77,14 @@ public class frmStart extends javax.swing.JFrame {
         btnOpenImage.setText("Abrir Imagen");
         btnOpenImage.setFocusable(false);
         btnOpenImage.setOpaque(false);
+        btnOpenImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnOpenImageMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnOpenImageMouseReleased(evt);
+            }
+        });
         btnOpenImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenImageActionPerformed(evt);
@@ -138,14 +150,29 @@ public class frmStart extends javax.swing.JFrame {
         chooser.setFileFilter(new FileNameExtensionFilter("photos JPG","jpg"));
         int open = chooser.showOpenDialog(null);
         if(open == JFileChooser.APPROVE_OPTION){
+            File file = chooser.getSelectedFile();
             try {
-                new frmPrincipal().setVisible(true);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                new frmPrincipal(file.getCanonicalPath()).setVisible(true);
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException | IOException ex) {
                 Logger.getLogger(frmStart.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
         }
     }//GEN-LAST:event_btnOpenImageActionPerformed
+
+    private void btnOpenImageMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenImageMousePressed
+        Object object = evt.getSource();
+        if(object instanceof Component){
+            ((Component)object).setForeground(new Color(38, 50, 56));
+        }
+    }//GEN-LAST:event_btnOpenImageMousePressed
+
+    private void btnOpenImageMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenImageMouseReleased
+        Object object = evt.getSource();
+        if(object instanceof Component){
+            ((Component)object).setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_btnOpenImageMouseReleased
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

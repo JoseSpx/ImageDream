@@ -35,10 +35,6 @@
               <Font name="Roboto" size="14" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="menuFileFocusGained"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuFileMouseEntered"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemFileOpen">
               <Properties>
@@ -50,10 +46,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
-              <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="itemFileOpenFocusGained"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="itemFileOpenMouseEntered"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemFileSaveAs">
               <Properties>

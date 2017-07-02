@@ -1,18 +1,19 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Component;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class frmPrincipal extends javax.swing.JFrame {
 
-    public frmPrincipal() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+    private String pathImage;
+    
+    public frmPrincipal(String path) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         initComponents();
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         //setSize(1300, 709);
         //setResizable(false);
         setLocationRelativeTo(null);
+        this.pathImage = path;
     }
 
     @SuppressWarnings("unchecked")
@@ -92,30 +93,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuFile.setForeground(new java.awt.Color(255, 255, 255));
         menuFile.setText("Archivo");
         menuFile.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        menuFile.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                menuFileFocusGained(evt);
-            }
-        });
-        menuFile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                menuFileMouseEntered(evt);
-            }
-        });
 
         itemFileOpen.setBackground(new java.awt.Color(96, 125, 139));
         itemFileOpen.setForeground(new java.awt.Color(255, 255, 255));
         itemFileOpen.setText("Abrir");
-        itemFileOpen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                itemFileOpenFocusGained(evt);
-            }
-        });
-        itemFileOpen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                itemFileOpenMouseEntered(evt);
-            }
-        });
         menuFile.add(itemFileOpen);
 
         itemFileSaveAs.setBackground(new java.awt.Color(96, 125, 139));
@@ -152,22 +133,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void itemFileOpenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemFileOpenFocusGained
-        
-    }//GEN-LAST:event_itemFileOpenFocusGained
-
-    private void menuFileFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_menuFileFocusGained
-       
-    }//GEN-LAST:event_menuFileFocusGained
-
-    private void menuFileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuFileMouseEntered
-
-    }//GEN-LAST:event_menuFileMouseEntered
-
-    private void itemFileOpenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemFileOpenMouseEntered
-
-    }//GEN-LAST:event_itemFileOpenMouseEntered
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
