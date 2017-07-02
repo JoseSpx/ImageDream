@@ -1,11 +1,18 @@
 package imagedream;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UnsupportedLookAndFeelException;
 import view.frmPrincipal;
 
 public class ImageDream {
 
     public static void main(String[] args) {
-        new frmPrincipal().setVisible(true);
+        try {
+            new frmPrincipal().setVisible(true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ImageDream.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
