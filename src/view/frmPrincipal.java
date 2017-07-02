@@ -13,6 +13,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.pathImage = path;
     }
 
+    public void showImageOnBothLabels(){
+        
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,7 +157,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             new frmStart().setVisible(true);
             this.dispose();
         }
-        
     }//GEN-LAST:event_itemFileCloseActionPerformed
 
     
