@@ -1,20 +1,69 @@
 package view;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
+import model.MyImage;
 
 public class frmPrincipal extends javax.swing.JFrame {
 
     private String pathImage;
+    private final MyImage originalImage;
     
     public frmPrincipal(String path) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         initComponents();
         setLocationRelativeTo(null);
         this.pathImage = path;
+        this.originalImage = new MyImage(pathImage);
+        showImageOnlblOriginalImage();
+        showImageOnlblImageActual();
     }
 
-    public void showImageOnBothLabels(){
+    public void showImageOnlblOriginalImage(){
+        int [] dimensions;
+        dimensions = resizeOriginalImageToLabel(350,180);
         
+        lblOriginalImage.setIcon(new ImageIcon(
+                new ImageIcon(pathImage).getImage().getScaledInstance(dimensions[0],dimensions[1], Image.SCALE_DEFAULT)));
+        lblOriginalImage.setHorizontalAlignment(SwingConstants.CENTER);
+        lblOriginalImage.setVerticalAlignment(SwingConstants.CENTER);
+    }
+    
+    public void showImageOnlblImageActual(){
+        int [] dimensions;
+        dimensions = resizeOriginalImageToLabel(820,640);
+        
+        lblImageActual.setIcon(new ImageIcon(
+                new ImageIcon(pathImage).getImage().getScaledInstance(dimensions[0],dimensions[1], Image.SCALE_DEFAULT)));
+        lblImageActual.setHorizontalAlignment(SwingConstants.CENTER);
+        lblImageActual.setVerticalAlignment(SwingConstants.CENTER);
+    }
+    
+    public int [] resizeOriginalImageToLabel(int widthLabel, int heightLabel){
+        final int lblOriginalWidth = widthLabel;
+        final int lblOriginalHeight = heightLabel;
+        int percentage = 1;
+        int widthOriginalimage = this.originalImage.getColumnas();
+        int heightOriginalImage = this.originalImage.getFilas();
+        int width = getNewSizeByPorcentage(widthOriginalimage, percentage);
+        int height = getNewSizeByPorcentage(heightOriginalImage, percentage);
+        int [] dimensions = new int [2];
+        
+        while(width < lblOriginalWidth && height < lblOriginalHeight){
+            dimensions[0] = width;
+            dimensions[1] = height;
+            percentage = percentage + 1;
+            width = getNewSizeByPorcentage(widthOriginalimage, percentage);
+            height = getNewSizeByPorcentage(heightOriginalImage, percentage);
+        }
+        
+        return dimensions;
+    }
+    
+    public int getNewSizeByPorcentage(int number, int porcentage){
+        return (number * porcentage) / 100;
     }
     
     @SuppressWarnings("unchecked")

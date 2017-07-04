@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Image extends Component
+public class MyImage extends Component
 {
     BufferedImage   img;
     double [][]     matrizImg;		 //matrizImg de la imagen en escala de grises
@@ -19,7 +19,7 @@ public class Image extends Component
     int             columnas;            //numero de filas
     int             filas;               //numero de
 
-    public Image(String nombreImagen){
+    public MyImage(String nombreImagen){
         try{
             img = ImageIO.read(new File(nombreImagen));
             convertirImagenAMatriz();
@@ -27,7 +27,7 @@ public class Image extends Component
         catch (IOException e) {}
     }
 
-    public Image(double [][]matriz){
+    public MyImage(double [][]matriz){
          convertirMatrizAImagen(matriz);
     }
 
