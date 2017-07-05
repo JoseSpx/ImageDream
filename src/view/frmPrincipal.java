@@ -35,13 +35,15 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void showImageOnlblImageActual(){
-        int [] dimensions;
+        lblImageActual.setIcon(new ImageIcon(pathImage));
+        /*int [] dimensions;
         dimensions = resizeOriginalImageToLabel(1820,640);
         
         lblImageActual.setIcon(new ImageIcon(
                 new ImageIcon(pathImage).getImage().getScaledInstance(dimensions[0],dimensions[1], Image.SCALE_DEFAULT)));
         lblImageActual.setHorizontalAlignment(SwingConstants.CENTER);
         lblImageActual.setVerticalAlignment(SwingConstants.CENTER);
+        */
     }
     
     public int [] resizeOriginalImageToLabel(int widthLabel, int heightLabel){
@@ -86,6 +88,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemFileSaveAs = new javax.swing.JMenuItem();
         itemFileClose = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        itemEscalar = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -196,6 +200,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("Imagen");
         jMenu2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+
+        itemEscalar.setText("Escalar");
+        jMenu2.add(itemEscalar);
+
+        jMenuItem1.setText("Brillo");
+        jMenu2.add(jMenuItem1);
+
         menuBarPrincipal.add(jMenu2);
 
         setJMenuBar(menuBarPrincipal);
@@ -218,7 +229,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void itemFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileCloseActionPerformed
         int option = JOptionPane.showConfirmDialog(null,
-                "se perdera todo lo aplicado en la imagen, esta seguro ?","Salir",JOptionPane.YES_NO_OPTION);
+                "Se perdera todo lo aplicado en la imagen, esta seguro ?","Salir",JOptionPane.YES_NO_OPTION);
         
         if (option == JOptionPane.YES_OPTION){
             new frmStart().setVisible(true);
@@ -238,11 +249,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemEscalar;
     private javax.swing.JMenuItem itemFileClose;
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
