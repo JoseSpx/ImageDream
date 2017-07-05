@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.MyImage;
@@ -22,8 +24,18 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.originalImage = new MyImage(pathImage);
         showImageOnlblOriginalImage();
         showImageOnlblImageActual();
+        changePane(new PaneScale());
     }
 
+    public void changePane(JPanel panelElegido){
+        panelElegido.setSize(350,420);
+        panelElegido.setLocation(0,0);
+        this.paneContent.removeAll();
+        this.paneContent.add(panelElegido,BorderLayout.CENTER);
+        this.paneContent.revalidate();
+        this.paneContent.repaint();
+    }
+    
     public void showImageOnlblOriginalImage(){
         int [] dimensions;
         dimensions = resizeOriginalImageToLabel(350,180);
@@ -78,7 +90,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblOriginalImage = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        paneContent = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lblImageActual = new javax.swing.JLabel();
@@ -89,7 +101,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemFileClose = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itemEscalar = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itemBrillo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -109,22 +121,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel1.add(lblOriginalImage);
         lblOriginalImage.setBounds(920, 30, 350, 180);
 
-        jPanel2.setBackground(new java.awt.Color(38, 50, 56));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        paneContent.setBackground(new java.awt.Color(38, 50, 56));
+        paneContent.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout paneContentLayout = new javax.swing.GroupLayout(paneContent);
+        paneContent.setLayout(paneContentLayout);
+        paneContentLayout.setHorizontalGroup(
+            paneContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 348, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        paneContentLayout.setVerticalGroup(
+            paneContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 418, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(920, 250, 350, 420);
+        jPanel1.add(paneContent);
+        paneContent.setBounds(920, 250, 350, 420);
 
         lblImageActual.setBackground(new java.awt.Color(55, 71, 79));
         lblImageActual.setOpaque(true);
@@ -204,8 +216,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemEscalar.setText("Escalar");
         jMenu2.add(itemEscalar);
 
-        jMenuItem1.setText("Brillo");
-        jMenu2.add(jMenuItem1);
+        itemBrillo.setText("Brillo");
+        jMenu2.add(itemBrillo);
 
         menuBarPrincipal.add(jMenu2);
 
@@ -249,20 +261,20 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemBrillo;
     private javax.swing.JMenuItem itemEscalar;
     private javax.swing.JMenuItem itemFileClose;
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImageActual;
     private javax.swing.JLabel lblOriginalImage;
     private javax.swing.JMenuBar menuBarPrincipal;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JPanel paneContent;
     // End of variables declaration//GEN-END:variables
 }

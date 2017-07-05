@@ -105,7 +105,7 @@
                 <Property name="text" type="java.lang.String" value="Escalar"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="itemBrillo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Brillo"/>
               </Properties>
@@ -201,7 +201,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="paneContent">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="38" green="32" red="26" type="rgb"/>
