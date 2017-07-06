@@ -2,10 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.MyImage;
 
@@ -17,8 +20,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private String pathImage;
     private final MyImage originalImage;
     
-    public frmPrincipal(String path) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-        initComponents();
+    public frmPrincipal(String path){
+        initComponents();  
         setLocationRelativeTo(null);
         this.pathImage = path;
         this.originalImage = new MyImage(pathImage);
@@ -26,7 +29,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         showImageOnlblImageActual();
         changePane(new PaneScale());
     }
-
+    
     public void changePane(JPanel panelElegido){
         panelElegido.setSize(350,420);
         panelElegido.setLocation(0,0);
@@ -158,7 +161,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menuBarPrincipal.setBackground(new java.awt.Color(102, 102, 102));
         menuBarPrincipal.setBorder(null);
-        menuBarPrincipal.setFocusCycleRoot(true);
+        menuBarPrincipal.setFocusable(false);
         menuBarPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         menuBarPrincipal.setMaximumSize(new java.awt.Dimension(98, 300));
         menuBarPrincipal.setPreferredSize(new java.awt.Dimension(300, 19));
@@ -177,6 +180,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuFile.setForeground(new java.awt.Color(255, 255, 255));
         menuFile.setText("Archivo");
         menuFile.setBorderPainted(true);
+        menuFile.setFocusable(false);
         menuFile.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         menuFile.setOpaque(true);
 
@@ -192,6 +196,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemFileSaveAs.setText("Guardar como");
         itemFileSaveAs.setBorderPainted(true);
         itemFileSaveAs.setOpaque(true);
+        itemFileSaveAs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFileSaveAsActionPerformed(evt);
+            }
+        });
         menuFile.add(itemFileSaveAs);
 
         itemFileClose.setBackground(new java.awt.Color(84, 110, 122));
@@ -211,12 +220,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenu2.setBackground(new java.awt.Color(102, 102, 102));
         jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("Imagen");
+        jMenu2.setBorderPainted(true);
         jMenu2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jMenu2.setOpaque(true);
 
+        itemEscalar.setBackground(new java.awt.Color(84, 110, 122));
+        itemEscalar.setForeground(new java.awt.Color(255, 255, 255));
         itemEscalar.setText("Escalar");
+        itemEscalar.setOpaque(true);
         jMenu2.add(itemEscalar);
 
+        itemBrillo.setBackground(new java.awt.Color(84, 110, 122));
+        itemBrillo.setForeground(new java.awt.Color(255, 255, 255));
         itemBrillo.setText("Brillo");
+        itemBrillo.setOpaque(true);
         jMenu2.add(itemBrillo);
 
         menuBarPrincipal.add(jMenu2);
@@ -258,6 +275,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.setLocation(this.getLocation().x + evt.getX() - this.x,this.getLocation().y + evt.getY() - this.y);
 
     }//GEN-LAST:event_menuBarPrincipalMouseDragged
+
+    private void itemFileSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileSaveAsActionPerformed
+        int numberOfChannels = this.originalImage.getNumberOfchannels();
+        if( numberOfChannels == 3){
+            
+        }else{
+            
+        }
+    }//GEN-LAST:event_itemFileSaveAsActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

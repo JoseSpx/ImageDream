@@ -11,14 +11,15 @@ import javax.imageio.ImageIO;
 
 public class MyImage extends Component
 {
-    BufferedImage   img;
-    double [][]     matrizImg;		 //matrizImg de la imagen en escala de grises
-    double [][]     matrizImg_R;         //matrizImg de la imagen en R
-    double [][]     matrizImg_G;         //matriz de la imagen en G
-    double [][]     matrizImg_B;         //matriz de la imagen en B
-    int             columnas;            //numero de filas
-    int             filas;               //numero de
-
+    private BufferedImage   img;
+    private double [][]     matrizImg;		 //matrizImg de la imagen en escala de grises
+    private double [][]     matrizImg_R;         //matrizImg de la imagen en R
+    private double [][]     matrizImg_G;         //matriz de la imagen en G
+    private double [][]     matrizImg_B;         //matriz de la imagen en B
+    private int             columnas;            //numero de filas
+    private int             filas;               //numero de
+    private int numberOfchannels;
+    
     public MyImage(String nombreImagen){
         try{
             img = ImageIO.read(new File(nombreImagen));
@@ -45,13 +46,13 @@ public class MyImage extends Component
     	double b;
 
     	WritableRaster raster=img.getRaster();
-    	int numBandas=raster.getNumBands(); 
+    	this.numberOfchannels =raster.getNumBands(); 
 
     	for (int i=0;i<filas;i++) 
     	{
             for(int j=0;j<columnas;j++) 
             {
-                if (numBandas==3)
+                if (this.numberOfchannels == 3)
                 {   r=raster.getSampleDouble(j,i,0);
                     g=raster.getSampleDouble(j,i,1);
                     b=raster.getSampleDouble(j,i,2);
@@ -61,7 +62,7 @@ public class MyImage extends Component
                     matrizImg_G[i][j]=g;
                     matrizImg_B[i][j]=b;
                 }
-                if (numBandas==1)
+                if (this.numberOfchannels == 1)
                 {   matrizImg[i][j]=raster.getSampleDouble(j,i,0);
                     matrizImg_R[i][j]=255;
                     matrizImg_G[i][j]=255;
@@ -74,7 +75,7 @@ public class MyImage extends Component
     public void convertirMatrizAImagen(double [][] matriz)
     {
         int alto = matriz.length;
-	    int ancho = matriz[0].length;
+        int ancho = matriz[0].length;
 
         img = new BufferedImage(ancho,alto,BufferedImage.TYPE_BYTE_GRAY);
         WritableRaster wr = img.getRaster();
@@ -165,6 +166,10 @@ public void guardarImagen(double [][]matriz_R, double [][]matriz_G, double [][]m
           }
     }
 
+    public int getNumberOfchannels() {
+        return numberOfchannels;
+    }
+    
     public double[][] getMatrizImg() {
 
         return matrizImg;

@@ -43,6 +43,12 @@ public class PaneScale extends javax.swing.JPanel {
         sliderHeight.setPaintTicks(true);
         sliderHeight.setToolTipText("");
         sliderHeight.setValue(100);
+        sliderHeight.setFocusable(false);
+        sliderHeight.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderHeightStateChanged(evt);
+            }
+        });
 
         SliderWidth.setBackground(new java.awt.Color(38, 50, 56));
         SliderWidth.setForeground(new java.awt.Color(255, 255, 255));
@@ -53,6 +59,12 @@ public class PaneScale extends javax.swing.JPanel {
         SliderWidth.setPaintTicks(true);
         SliderWidth.setToolTipText("");
         SliderWidth.setValue(100);
+        SliderWidth.setFocusable(false);
+        SliderWidth.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SliderWidthStateChanged(evt);
+            }
+        });
 
         btnReset.setBackground(new java.awt.Color(207, 216, 220));
         btnReset.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -113,6 +125,14 @@ public class PaneScale extends javax.swing.JPanel {
         this.sliderHeight.setValue(100);
         this.SliderWidth.setValue(100);
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void sliderHeightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderHeightStateChanged
+        
+    }//GEN-LAST:event_sliderHeightStateChanged
+
+    private void SliderWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderWidthStateChanged
+        
+    }//GEN-LAST:event_SliderWidthStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -17,7 +17,7 @@ public class frmStart extends javax.swing.JFrame {
     
     public frmStart() {
         initComponents();
-        changeLookAndFeel();
+        //changeLookAndFeel();
         setLocationRelativeTo(null);
     }
 
@@ -44,6 +44,8 @@ public class frmStart extends javax.swing.JFrame {
 
         panel.setBackground(new java.awt.Color(38, 50, 56));
         panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panel.setDoubleBuffered(false);
+        panel.setFocusable(false);
         panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelMouseDragged(evt);
@@ -64,7 +66,6 @@ public class frmStart extends javax.swing.JFrame {
         btnClose.setForeground(new java.awt.Color(255, 255, 255));
         btnClose.setText("Cerrar");
         btnClose.setFocusable(false);
-        btnClose.setOpaque(false);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseActionPerformed(evt);
@@ -76,7 +77,6 @@ public class frmStart extends javax.swing.JFrame {
         btnOpenImage.setForeground(new java.awt.Color(255, 255, 255));
         btnOpenImage.setText("Abrir Imagen");
         btnOpenImage.setFocusable(false);
-        btnOpenImage.setOpaque(false);
         btnOpenImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnOpenImageMousePressed(evt);
@@ -150,13 +150,13 @@ public class frmStart extends javax.swing.JFrame {
         chooser.setFileFilter(new FileNameExtensionFilter("photos JPG","jpg"));
         int open = chooser.showOpenDialog(null);
         if(open == JFileChooser.APPROVE_OPTION){
-            File file = chooser.getSelectedFile();
             try {
+                File file = chooser.getSelectedFile();
                 new frmPrincipal(file.getCanonicalPath()).setVisible(true);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException | IOException ex) {
+                this.dispose();
+            } catch (IOException ex) {
                 Logger.getLogger(frmStart.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dispose();
         }
     }//GEN-LAST:event_btnOpenImageActionPerformed
 
