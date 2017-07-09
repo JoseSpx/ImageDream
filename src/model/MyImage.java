@@ -28,10 +28,11 @@ public class MyImage extends Component
         catch (IOException e) {}
     }
 
-    public MyImage(double [][]matriz){
-         convertirMatrizAImagen(matriz);
+    public MyImage(BufferedImage image){
+        this.img = image;
+        convertirImagenAMatriz();
     }
-
+    
     public void convertirImagenAMatriz()
     {
         filas = img.getHeight();
@@ -72,13 +73,12 @@ public class MyImage extends Component
         }
     }
 
-    public void convertirMatrizAImagen(double [][] matriz)
-    {
+    public BufferedImage convertirMatrizGrayAImagen(double [][] matriz){
         int alto = matriz.length;
         int ancho = matriz[0].length;
 
-        img = new BufferedImage(ancho,alto,BufferedImage.TYPE_BYTE_GRAY);
-        WritableRaster wr = img.getRaster();
+        BufferedImage image = new BufferedImage(ancho,alto,BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster wr = image.getRaster();
 
         for (int i=0;i<alto;i++)
         {
@@ -87,11 +87,29 @@ public class MyImage extends Component
                 wr.setSample(j,i,0,matriz[i][j]);
             }
         }
-        img.setData(wr);
+        image.setData(wr);
+        
+        return image;
     }
 
-    public void guardarImagen(double [][]matriz, String path)
-    {       
+    public BufferedImage convertirMatrizRGBAImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B){
+        
+        BufferedImage image = new BufferedImage(matriz_R[0].length,matriz_R.length,BufferedImage.TYPE_INT_RGB);
+        WritableRaster wr = image.getRaster();
+
+        for (int i=0;i<matriz_R.length;i++){
+            for(int j=0;j<matriz_R[0].length;j++){
+                wr.setSample(j,i,0,matriz_R[i][j]);
+                wr.setSample(j,i,1,matriz_G[i][j]);
+                wr.setSample(j,i,2,matriz_B[i][j]);
+            }
+        }
+
+        image.setData(wr);
+        return image;
+    }
+    
+    public static void guardarImagen(double [][]matriz, String path){       
         BufferedImage imgNew = new BufferedImage(matriz[0].length,matriz.length,BufferedImage.TYPE_BYTE_GRAY);
         WritableRaster wr = imgNew.getRaster();
 
@@ -111,26 +129,29 @@ public class MyImage extends Component
         catch(IOException e){}
     }
 
-public void guardarImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B,String path)
+public static void guardarImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B,String path)
  {
         BufferedImage imgn = new BufferedImage(matriz_R[0].length,matriz_R.length,BufferedImage.TYPE_INT_RGB);
         WritableRaster wr = imgn.getRaster();
-
-        for (int i=0;i<matriz_R.length;i++)
-        {   for(int j=0;j<matriz_R[0].length;j++)
-            {
+        int i, j;
+        
+        for(i=0;i<matriz_R.length;i++){
+            for(j=0;j<matriz_R[0].length;j++){
                 wr.setSample(j,i,0,matriz_R[i][j]);
                 wr.setSample(j,i,1,matriz_G[i][j]);
                 wr.setSample(j,i,2,matriz_B[i][j]);
             }
         }
 
-        img.setData(wr);
-        try
-        {
-            ImageIO.write(img, "JPG", new File(path+".jpg"));
+        imgn.setData(wr);
+        try{
+            path = path + "\\im.jpg";
+            ImageIO.write(imgn, "JPG", new File(path));
+            System.out.println("-" + path);
         }
-        catch(IOException e){}
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
    
    @Override

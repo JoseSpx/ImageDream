@@ -1,6 +1,11 @@
 package view;
+
+import java.awt.image.BufferedImage;
+
 public class PaneScale extends javax.swing.JPanel {
 
+    private BufferedImage image;
+    
     public PaneScale() {
         initComponents();
     }

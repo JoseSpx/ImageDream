@@ -2,14 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import model.MyImage;
 
 public class frmPrincipal extends javax.swing.JFrame {
@@ -19,15 +18,23 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     private String pathImage;
     private final MyImage originalImage;
+    private BufferedImage bufferedOriginalImage = null;
     
     public frmPrincipal(String path){
         initComponents();  
         setLocationRelativeTo(null);
         this.pathImage = path;
         this.originalImage = new MyImage(pathImage);
+        this.bufferedOriginalImage = this.originalImage.getImg();
         showImageOnlblOriginalImage();
         showImageOnlblImageActual();
         changePane(new PaneScale());
+        configurations();
+    }
+    
+    public void configurations(){
+        radioGroupEscalar.add(radioPromedio);
+        radioGroupEscalar.add(radioLineaAnterior);
     }
     
     public void changePane(JPanel panelElegido){
@@ -50,15 +57,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void showImageOnlblImageActual(){
-        lblImageActual.setIcon(new ImageIcon(pathImage));
-        /*int [] dimensions;
-        dimensions = resizeOriginalImageToLabel(1820,640);
-        
-        lblImageActual.setIcon(new ImageIcon(
-                new ImageIcon(pathImage).getImage().getScaledInstance(dimensions[0],dimensions[1], Image.SCALE_DEFAULT)));
-        lblImageActual.setHorizontalAlignment(SwingConstants.CENTER);
-        lblImageActual.setVerticalAlignment(SwingConstants.CENTER);
-        */
+        lblImageActual.setIcon(new ImageIcon(bufferedOriginalImage));
     }
     
     public int [] resizeOriginalImageToLabel(int widthLabel, int heightLabel){
@@ -90,6 +89,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        radioGroupEscalar = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblOriginalImage = new javax.swing.JLabel();
@@ -102,9 +102,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemFileOpen = new javax.swing.JMenuItem();
         itemFileSaveAs = new javax.swing.JMenuItem();
         itemFileClose = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuImage = new javax.swing.JMenu();
         itemEscalar = new javax.swing.JMenuItem();
         itemBrillo = new javax.swing.JMenuItem();
+        menuConfiguracion = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        radioPromedio = new javax.swing.JRadioButtonMenuItem();
+        radioLineaAnterior = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -177,24 +181,27 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         menuFile.setBackground(new java.awt.Color(102, 102, 102));
+        menuFile.setBorder(null);
         menuFile.setForeground(new java.awt.Color(255, 255, 255));
         menuFile.setText("Archivo");
-        menuFile.setBorderPainted(true);
+        menuFile.setContentAreaFilled(false);
         menuFile.setFocusable(false);
-        menuFile.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        menuFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuFile.setOpaque(true);
 
-        itemFileOpen.setBackground(new java.awt.Color(84, 110, 122));
+        itemFileOpen.setBackground(new java.awt.Color(102, 102, 102));
         itemFileOpen.setForeground(new java.awt.Color(255, 255, 255));
         itemFileOpen.setText("Abrir");
-        itemFileOpen.setBorderPainted(true);
+        itemFileOpen.setAlignmentX(0.0F);
+        itemFileOpen.setAlignmentY(0.0F);
+        itemFileOpen.setBorder(null);
         itemFileOpen.setOpaque(true);
         menuFile.add(itemFileOpen);
 
-        itemFileSaveAs.setBackground(new java.awt.Color(84, 110, 122));
+        itemFileSaveAs.setBackground(new java.awt.Color(102, 102, 102));
         itemFileSaveAs.setForeground(new java.awt.Color(255, 255, 255));
         itemFileSaveAs.setText("Guardar como");
-        itemFileSaveAs.setBorderPainted(true);
+        itemFileSaveAs.setBorder(null);
         itemFileSaveAs.setOpaque(true);
         itemFileSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,10 +210,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         menuFile.add(itemFileSaveAs);
 
-        itemFileClose.setBackground(new java.awt.Color(84, 110, 122));
+        itemFileClose.setBackground(new java.awt.Color(102, 102, 102));
         itemFileClose.setForeground(new java.awt.Color(255, 255, 255));
         itemFileClose.setText("Cerrar");
-        itemFileClose.setBorderPainted(true);
+        itemFileClose.setBorder(null);
         itemFileClose.setOpaque(true);
         itemFileClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,26 +224,56 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menuBarPrincipal.add(menuFile);
 
-        jMenu2.setBackground(new java.awt.Color(102, 102, 102));
-        jMenu2.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu2.setText("Imagen");
-        jMenu2.setBorderPainted(true);
-        jMenu2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jMenu2.setOpaque(true);
+        menuImage.setBackground(new java.awt.Color(102, 102, 102));
+        menuImage.setBorder(null);
+        menuImage.setForeground(new java.awt.Color(255, 255, 255));
+        menuImage.setText("Imagen");
+        menuImage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuImage.setOpaque(true);
 
-        itemEscalar.setBackground(new java.awt.Color(84, 110, 122));
+        itemEscalar.setBackground(new java.awt.Color(102, 102, 102));
         itemEscalar.setForeground(new java.awt.Color(255, 255, 255));
         itemEscalar.setText("Escalar");
         itemEscalar.setOpaque(true);
-        jMenu2.add(itemEscalar);
+        menuImage.add(itemEscalar);
 
-        itemBrillo.setBackground(new java.awt.Color(84, 110, 122));
+        itemBrillo.setBackground(new java.awt.Color(102, 102, 102));
         itemBrillo.setForeground(new java.awt.Color(255, 255, 255));
         itemBrillo.setText("Brillo");
         itemBrillo.setOpaque(true);
-        jMenu2.add(itemBrillo);
+        menuImage.add(itemBrillo);
 
-        menuBarPrincipal.add(jMenu2);
+        menuBarPrincipal.add(menuImage);
+
+        menuConfiguracion.setBackground(new java.awt.Color(102, 102, 102));
+        menuConfiguracion.setBorder(null);
+        menuConfiguracion.setForeground(new java.awt.Color(255, 255, 255));
+        menuConfiguracion.setText("Configuracion");
+        menuConfiguracion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuConfiguracion.setOpaque(true);
+
+        jMenu1.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu1.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu1.setText("Escalar");
+        jMenu1.setOpaque(true);
+
+        radioPromedio.setBackground(new java.awt.Color(102, 102, 102));
+        radioPromedio.setForeground(new java.awt.Color(255, 255, 255));
+        radioPromedio.setSelected(true);
+        radioPromedio.setText("Promedio");
+        radioPromedio.setOpaque(true);
+        jMenu1.add(radioPromedio);
+
+        radioLineaAnterior.setBackground(new java.awt.Color(102, 102, 102));
+        radioLineaAnterior.setForeground(new java.awt.Color(255, 255, 255));
+        radioLineaAnterior.setSelected(true);
+        radioLineaAnterior.setText("Linea Anterior");
+        radioLineaAnterior.setOpaque(true);
+        jMenu1.add(radioLineaAnterior);
+
+        menuConfiguracion.add(jMenu1);
+
+        menuBarPrincipal.add(menuConfiguracion);
 
         setJMenuBar(menuBarPrincipal);
 
@@ -277,11 +314,20 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuBarPrincipalMouseDragged
 
     private void itemFileSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileSaveAsActionPerformed
-        int numberOfChannels = this.originalImage.getNumberOfchannels();
-        if( numberOfChannels == 3){
-            
-        }else{
-            
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int save = chooser.showSaveDialog(null);
+        if(save == JFileChooser.APPROVE_OPTION){
+            File file = chooser.getSelectedFile();
+            int numberOfChannels = this.originalImage.getNumberOfchannels();
+            if( numberOfChannels == 3){
+                MyImage.guardarImagen(this.originalImage.getMatrizImg_R(),
+                        this.originalImage.getMatrizImg_G(),this.originalImage.getMatrizImg_B(),
+                        file.getAbsolutePath());
+            }else{
+                MyImage.guardarImagen(this.originalImage.getMatrizImg(),
+                        file.getPath());
+            }
         }
     }//GEN-LAST:event_itemFileSaveAsActionPerformed
 
@@ -293,14 +339,19 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImageActual;
     private javax.swing.JLabel lblOriginalImage;
     private javax.swing.JMenuBar menuBarPrincipal;
+    private javax.swing.JMenu menuConfiguracion;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuImage;
     private javax.swing.JPanel paneContent;
+    private javax.swing.ButtonGroup radioGroupEscalar;
+    private javax.swing.JRadioButtonMenuItem radioLineaAnterior;
+    private javax.swing.JRadioButtonMenuItem radioPromedio;
     // End of variables declaration//GEN-END:variables
 }
