@@ -108,6 +108,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuImage = new javax.swing.JMenu();
         itemEscalar = new javax.swing.JMenuItem();
         itemBrillo = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuConfiguracion = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         radioPromedio = new javax.swing.JRadioButtonMenuItem();
@@ -246,6 +247,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBrillo.setOpaque(true);
         menuImage.add(itemBrillo);
 
+        jMenuItem1.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem1.setText("Reset");
+        jMenuItem1.setOpaque(true);
+        menuImage.add(jMenuItem1);
+
         menuBarPrincipal.add(menuImage);
 
         menuConfiguracion.setBackground(new java.awt.Color(102, 102, 102));
@@ -361,6 +367,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFileSaveAs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
