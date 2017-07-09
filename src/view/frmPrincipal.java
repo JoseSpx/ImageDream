@@ -20,6 +20,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private final MyImage originalImage;
     private BufferedImage bufferedOriginalImage = null;
     
+    public static int scaleAlgorithm = 0;
+    
     public frmPrincipal(String path){
         initComponents();  
         setLocationRelativeTo(null);
@@ -262,6 +264,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         radioPromedio.setSelected(true);
         radioPromedio.setText("Promedio");
         radioPromedio.setOpaque(true);
+        radioPromedio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioPromedioActionPerformed(evt);
+            }
+        });
         jMenu1.add(radioPromedio);
 
         radioLineaAnterior.setBackground(new java.awt.Color(102, 102, 102));
@@ -330,6 +337,10 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_itemFileSaveAsActionPerformed
+
+    private void radioPromedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPromedioActionPerformed
+        System.out.println("aquiii");
+    }//GEN-LAST:event_radioPromedioActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
