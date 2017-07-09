@@ -10,8 +10,8 @@ public class PaneScale extends javax.swing.JPanel {
     private int heightPercentage;
     private int widthPercentage;
     
-    private final int WIDHT = 0;
-    private final int HEIGHT = 1;
+    private final int WIDTH_IMAGE = 0;
+    private final int HEIGTH_IMAGE = 1;
     
     public PaneScale() {
         initComponents();
@@ -144,17 +144,17 @@ public class PaneScale extends javax.swing.JPanel {
         this.widthPercentage = this.SliderWidth.getValue();
        
         if(this.heightPercentage > 100){
-            image = new ScaleImage().getScaleImage(image, heightPercentage - 100, HEIGHT);
+            image = new ScaleImage().getScaleImage(image, heightPercentage - 100, HEIGTH_IMAGE);
         }else if(this.heightPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, 100 - heightPercentage, HEIGHT);
+            image = new ScaleImage().getScaleImage(image, 100 - heightPercentage, HEIGTH_IMAGE);
         }else if(this.heightPercentage == 100){
             image = frmPrincipal.bufferedOriginalImage;
         }
 
         if(this.widthPercentage > 100){
-            image = new ScaleImage().getScaleImage(image, widthPercentage - 100, WIDTH);
+            image = new ScaleImage().getScaleImage(image, widthPercentage - 100, WIDTH_IMAGE);
         }else if(this.widthPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, 100 - widthPercentage, WIDTH);
+            image = new ScaleImage().getScaleImage(image, 100 - widthPercentage, WIDTH_IMAGE);
         }
 
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
