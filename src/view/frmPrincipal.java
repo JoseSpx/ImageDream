@@ -18,16 +18,16 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     private String pathImage;
     private final MyImage originalImage;
-    private BufferedImage bufferedOriginalImage = null;
+    public static BufferedImage bufferedOriginalImage = null;
     
-    public static int scaleAlgorithm = 0;
+    public static int scaleAlgorithm = 1;
     
     public frmPrincipal(String path){
         initComponents();  
         setLocationRelativeTo(null);
         this.pathImage = path;
         this.originalImage = new MyImage(pathImage);
-        this.bufferedOriginalImage = this.originalImage.getImg();
+        bufferedOriginalImage = this.originalImage.getImg();
         showImageOnlblOriginalImage();
         showImageOnlblImageActual();
         changePane(new PaneScale());
@@ -35,6 +35,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void configurations(){
+        radioPromedio.setSelected(true);
         radioGroupEscalar.add(radioPromedio);
         radioGroupEscalar.add(radioLineaAnterior);
     }
@@ -276,6 +277,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         radioLineaAnterior.setSelected(true);
         radioLineaAnterior.setText("Linea Anterior");
         radioLineaAnterior.setOpaque(true);
+        radioLineaAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioLineaAnteriorActionPerformed(evt);
+            }
+        });
         jMenu1.add(radioLineaAnterior);
 
         menuConfiguracion.add(jMenu1);
@@ -339,8 +345,12 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemFileSaveAsActionPerformed
 
     private void radioPromedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPromedioActionPerformed
-        System.out.println("aquiii");
+        scaleAlgorithm = 1;
     }//GEN-LAST:event_radioPromedioActionPerformed
+
+    private void radioLineaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioLineaAnteriorActionPerformed
+        scaleAlgorithm = 2;
+    }//GEN-LAST:event_radioLineaAnteriorActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -354,7 +364,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblImageActual;
+    public static javax.swing.JLabel lblImageActual;
     private javax.swing.JLabel lblOriginalImage;
     private javax.swing.JMenuBar menuBarPrincipal;
     private javax.swing.JMenu menuConfiguracion;

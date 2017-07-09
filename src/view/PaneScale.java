@@ -1,10 +1,17 @@
 package view;
 
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import model.ScaleImage;
 
 public class PaneScale extends javax.swing.JPanel {
 
     private BufferedImage image;
+    private int heightPercentage;
+    private int widthPercentage;
+    
+    private final int WIDHT = 0;
+    private final int HEIGHT = 1;
     
     public PaneScale() {
         initComponents();
@@ -129,14 +136,37 @@ public class PaneScale extends javax.swing.JPanel {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         this.sliderHeight.setValue(100);
         this.SliderWidth.setValue(100);
+        frmPrincipal.lblImageActual.setIcon(new ImageIcon(frmPrincipal.bufferedOriginalImage));
     }//GEN-LAST:event_btnResetActionPerformed
 
+    public void scaleImage(){
+        this.heightPercentage = this.sliderHeight.getValue();
+        this.widthPercentage = this.SliderWidth.getValue();
+       
+        if(this.heightPercentage > 100){
+            image = new ScaleImage().getScaleImage(image, heightPercentage - 100, HEIGHT);
+        }else if(this.heightPercentage < 100){
+            image = new ScaleImage().getScaleImage(image, 100 - heightPercentage, HEIGHT);
+        }else if(this.heightPercentage == 100){
+            image = frmPrincipal.bufferedOriginalImage;
+        }
+
+        if(this.widthPercentage > 100){
+            image = new ScaleImage().getScaleImage(image, widthPercentage - 100, WIDTH);
+        }else if(this.widthPercentage < 100){
+            image = new ScaleImage().getScaleImage(image, 100 - widthPercentage, WIDTH);
+        }
+
+        frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
+    }
+    
+    
     private void sliderHeightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderHeightStateChanged
-        
+        scaleImage();
     }//GEN-LAST:event_sliderHeightStateChanged
 
     private void SliderWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderWidthStateChanged
-        
+        scaleImage();
     }//GEN-LAST:event_SliderWidthStateChanged
 
 

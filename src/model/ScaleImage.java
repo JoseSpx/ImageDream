@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class ScaleImage {
 
+    private final int scaleAlgorithmAverage = 1;
+    private final int scaleAlgorithmLineBefore = 2;
+    
     private final int WIDHT = 0;
     private final int HEIGHT = 1;
     
@@ -15,7 +18,7 @@ public class ScaleImage {
     private int height;
     private int width;
     
-    public BufferedImage scaleImage(BufferedImage image,int percentage,int type){
+    public BufferedImage getScaleImage(BufferedImage image,int percentage,int type){
         MyImage myImage = new MyImage(image);
         this.width = myImage.getColumnas();
         this.height = myImage.getFilas();
