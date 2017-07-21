@@ -142,13 +142,12 @@ public class PaneScale extends javax.swing.JPanel {
     public void scaleImage(){
         this.heightPercentage = this.sliderHeight.getValue();
         this.widthPercentage = this.SliderWidth.getValue();
+        this.image = frmPrincipal.bufferedOriginalImage;
        
         if(this.heightPercentage > 100){
-            image = new ScaleImage().getScaleImage(image, heightPercentage - 100, HEIGTH_IMAGE);
+            image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
         }else if(this.heightPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, 100 - heightPercentage, HEIGTH_IMAGE);
-        }else if(this.heightPercentage == 100){
-            image = frmPrincipal.bufferedOriginalImage;
+            image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
         }
 
         if(this.widthPercentage > 100){
@@ -156,8 +155,8 @@ public class PaneScale extends javax.swing.JPanel {
         }else if(this.widthPercentage < 100){
             image = new ScaleImage().getScaleImage(image, 100 - widthPercentage, WIDTH_IMAGE);
         }
-
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
+        frmPrincipal.bufferedActualImage = image;
     }
     
     

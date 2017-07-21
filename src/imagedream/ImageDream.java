@@ -11,7 +11,7 @@ public class ImageDream {
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
         //changeLookAndFeel();
-        new frmPrincipal("C:\\Users\\Jose sp\\Pictures\\usher.jpg").setVisible(true);
+        new frmPrincipal("C:\\Users\\Jose sp\\Pictures\\usherSmall.jpg").setVisible(true);
         //new frmStart().setVisible(true);
     }
     
