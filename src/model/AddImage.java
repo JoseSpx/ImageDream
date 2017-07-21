@@ -61,12 +61,17 @@ public class AddImage {
         }
         
         //sumamos la segunda imagen por promedio
-        int average;
+        Color actual;
+        Color add;
         for (int i = 0; i < heightImageToAdd; i++) {
             for (int j = 0; j < widthImageToAdd; j++) {
-                if(i <= heightImageActual && j <= widthImageActual){
-                    average = ( imageActual.getRGB(j, i) + bufferedImageToAdd.getRGB(j, i) ) / 2;
-                    newImage.setRGB(j, i,average);
+                if(i < heightImageActual && j < widthImageActual){
+                    actual = new Color(imageActual.getRGB(j, i));
+                    add = new Color(bufferedImageToAdd.getRGB(j, i));
+                    //average = ( imageActual.getRGB(j, i) + bufferedImageToAdd.getRGB(j, i) ) / 2;
+                    newImage.setRGB(j, i,new Color((actual.getRed() + add.getRed()) / 2,
+                                                   (actual.getGreen()+ add.getGreen()) / 2,
+                                                   (actual.getBlue()+ add.getBlue()) / 2).getRGB());
                 }
                 else{
                     newImage.setRGB(j, i,bufferedImageToAdd.getRGB(j, i));
@@ -75,7 +80,7 @@ public class AddImage {
             }
         }
         
-        return bufferedImageToAdd;
+        return newImage;
     }
     
     
