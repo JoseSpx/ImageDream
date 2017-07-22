@@ -23,4 +23,8 @@ public class ImageDream {
         }
     }
     
+    //binarizacion por canales, promedo e histograma
+    
+    //binarizacion local : dividirlo en 4 y aplicarle acada unou
+    
 }

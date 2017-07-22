@@ -150,10 +150,10 @@ public class PaneScale extends javax.swing.JPanel {
             image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
         }
 
-        if(this.widthPercentage > 100){
-            image = new ScaleImage().getScaleImage(image, widthPercentage - 100, WIDTH_IMAGE);
+        if(this.widthPercentage > 100){System.out.println("widht + 100");
+            image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
         }else if(this.widthPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, 100 - widthPercentage, WIDTH_IMAGE);
+            image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
         }
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
         frmPrincipal.bufferedActualImage = image;

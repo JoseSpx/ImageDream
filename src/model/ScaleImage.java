@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.ArrayList;
@@ -39,14 +40,31 @@ public class ScaleImage {
     public BufferedImage scaleRGB(double [][] matrixR, double [][] matrixG, double [][] matrixB,int percentage, int type){
         int newPixels;
 
+        if( percentage > 198 ){
+            percentage = percentage - 2;
+        }
+        System.out.println("afueraaa");
+        double [][] R = null;
+        double [][] G = null;
+        double [][] B = null;
+        
         if(type == WIDHT){
-            if( percentage > 100){
+            if( percentage > 100){System.out.println("entroo");
                 newPixels = getNumberOfNewPixels(width, percentage - 100);
                 ArrayList<Integer> listOfIndexes = getArrayOfIndexesOfNewPixels(width, newPixels);
                 
-                double [][] R = new double[HEIGHT][WIDHT + newPixels];
-                double [][] G = new double[HEIGHT][WIDHT + newPixels];
-                double [][] B = new double[HEIGHT][WIDHT + newPixels];
+                R = new double[height][width + newPixels];
+                G = new double[height][width + newPixels];
+                B = new double[height][width + newPixels];
+                
+                //rellenamos la matriz todo con -1
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width + newPixels; j++) {
+                        R[i][j] = -1;
+                        G[i][j] = -1;
+                        B[i][j] = -1;
+                    }
+                }
                 
                 if( frmPrincipal.scaleAlgorithmAverage ){
                     //ingresamos lo nuevos pixeles
@@ -74,22 +92,69 @@ public class ScaleImage {
                         }
                     }
                     
+                    int cont = 0;
+                    int aux;
+                    
                     for(int i = 0; i < height; i++) {
-                        int contador = 0;
-                        int num;
-                        while(contador < (width + newPixels)){
+                        for (int j = 0; j < width ; j++) {
+                            aux = j + cont;
                             
-                            for(Integer integer : listOfIndexes){
-                                if(integer <= contador){
-                                    
-                                }
+                            if(R[i][aux] != -1){
+                                cont++;
                             }
-                            
+                            else{
+                                R[i][aux] = new Color(image.getRGB(j, i)).getRed();
+                                G[i][aux] = new Color(image.getRGB(j, i)).getGreen();
+                                B[i][aux] = new Color(image.getRGB(j, i)).getBlue();
+                            }
                         }
                     }
                     
                    
                 }else if( frmPrincipal.scaleAlgorithmLineBefore ){
+                    
+                    //ingresamos lo nuevos pixeles
+                    double before;
+                    double after;
+                    double average;
+                    
+                    for(int i = 0; i < height; i++) {
+                        for(Integer number : listOfIndexes) {
+                            before = matrixR[i][number - 1];
+                            after = matrixR[i][number];
+                            average = ( before + after ) / 2;
+                            R[i][number] = average;
+                            
+                            before = matrixG[i][number - 1];
+                            after = matrixG[i][number];
+                            average = ( before + after ) / 2;
+                            G[i][number] = average;
+                            
+                            before = matrixB[i][number - 1];
+                            after = matrixB[i][number];
+                            average = ( before + after ) / 2;
+                            B[i][number] = average;
+                            
+                        }
+                    }
+                    
+                    int cont = 0;
+                    int aux;
+                    
+                    for(int i = 0; i < height; i++) {
+                        for (int j = 0; j < width ; j++) {
+                            aux = j + cont;
+                            
+                            if(R[i][aux] != -1){
+                                cont++;
+                            }
+                            else{
+                                R[i][aux] = new Color(image.getRGB(j, i)).getRed();
+                                G[i][aux] = new Color(image.getRGB(j, i)).getGreen();
+                                B[i][aux] = new Color(image.getRGB(j, i)).getBlue();
+                            }
+                        }
+                    }
                     
                 }
                 
@@ -106,7 +171,7 @@ public class ScaleImage {
         
         
         
-        return null;
+        return convertirMatrizRGBAImagen(R, G, B);
     }
     
     
@@ -126,7 +191,7 @@ public class ScaleImage {
         for(int i = 1 ; i < newPixels ; i++){
              j =  j + step;
             listOfIndexes.add(j);
-        }
+        }System.out.println("Taaño pixeles agregados : " + listOfIndexes.size());
         return listOfIndexes;
     }
     
