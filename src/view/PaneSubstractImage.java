@@ -11,11 +11,11 @@ import model.AddImage;
 import model.MyImage;
 import static view.frmPrincipal.lblImageActual;
 
-public class PaneAddImage extends javax.swing.JPanel {
+public class PaneSubstractImage extends javax.swing.JPanel {
 
     private MyImage myImage;
     
-    public PaneAddImage() {
+    public PaneSubstractImage() {
         initComponents();
         paneContainerImageAdded.setVisible(false);
     }
@@ -74,14 +74,13 @@ public class PaneAddImage extends javax.swing.JPanel {
         title.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Sumar una Imagen");
+        title.setText("Restar una Imagen");
         title.setOpaque(true);
 
         btnChooseAnImageToAdd.setBackground(new java.awt.Color(207, 216, 220));
         btnChooseAnImageToAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnChooseAnImageToAdd.setForeground(new java.awt.Color(84, 110, 122));
         btnChooseAnImageToAdd.setText("Elegir una Imagen");
-        btnChooseAnImageToAdd.setFocusPainted(false);
         btnChooseAnImageToAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChooseAnImageToAddActionPerformed(evt);
@@ -97,8 +96,6 @@ public class PaneAddImage extends javax.swing.JPanel {
         btnSeeImageAdded.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSeeImageAdded.setForeground(new java.awt.Color(84, 110, 122));
         btnSeeImageAdded.setText("Ver la Imagen");
-        btnSeeImageAdded.setFocusPainted(false);
-        btnSeeImageAdded.setFocusable(false);
         btnSeeImageAdded.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeeImageAddedActionPerformed(evt);
@@ -110,13 +107,13 @@ public class PaneAddImage extends javax.swing.JPanel {
         paneContainerImageAddedLayout.setHorizontalGroup(
             paneContainerImageAddedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(btnSeeImageAdded)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImageToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImageToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContainerImageAddedLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSeeImageAdded)
+                .addGap(99, 99, 99))
         );
         paneContainerImageAddedLayout.setVerticalGroup(
             paneContainerImageAddedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +147,7 @@ public class PaneAddImage extends javax.swing.JPanel {
                 .addComponent(btnChooseAnImageToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(paneContainerImageAdded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

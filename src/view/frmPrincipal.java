@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -10,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.AddImage;
 import model.Binarizacion;
 import model.MyImage;
 import model.SubstractImage;
@@ -22,8 +23,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     private String pathImage;
     private MyImage originalImage = null;
+    
     public static BufferedImage bufferedOriginalImage = null;
     public static BufferedImage bufferedActualImage = null;
+    public static BufferedImage bufferedBeforeImage = null;
+    public static BufferedImage bufferedAfterImage = null;
     
     public static boolean scaleAlgorithmAverage = true;
     public static boolean scaleAlgorithmLineBefore = false;
@@ -37,6 +41,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initBufferedImage(path);
         changePane(new PaneScale());
         configurations();
+        listeners();
     }
     
     public void initBufferedImage(String path){
@@ -56,6 +61,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         
     }
     
+    public void listeners(){
+        ListenerKey listenerKey = new ListenerKey();
+        this.addKeyListener(listenerKey);
+        lblImageActual.addKeyListener(listenerKey);
+        lblOriginalImage.addKeyListener(listenerKey);
+        menuBarPrincipal.addKeyListener(listenerKey);
+        menuConfiguracion.addKeyListener(listenerKey);
+        menuFile.addKeyListener(listenerKey);
+        menuReset.addKeyListener(listenerKey);
+        menuSubstractImage.addKeyListener(listenerKey);
+    }
     
     public void configurations(){
         radioPromedio.setSelected(true);
@@ -111,6 +127,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         return (number * porcentage) / 100;
     }
     
+    public void exit(){
+        int option = JOptionPane.showConfirmDialog(null,
+                "Se perdera todo lo aplicado en la imagen, esta seguro ?","Salir",JOptionPane.YES_NO_OPTION);
+        
+        if (option == JOptionPane.YES_OPTION){
+            new frmStart().setVisible(true);
+            this.dispose();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -140,12 +166,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         radioPromedio = new javax.swing.JRadioButtonMenuItem();
         radioLineaAnterior = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(38, 50, 56));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setFocusable(false);
         jPanel1.setLayout(null);
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
@@ -155,12 +184,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblOriginalImage.setBackground(new java.awt.Color(55, 71, 79));
         lblOriginalImage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        lblOriginalImage.setFocusable(false);
         lblOriginalImage.setOpaque(true);
         jPanel1.add(lblOriginalImage);
         lblOriginalImage.setBounds(920, 30, 350, 180);
 
         paneContent.setBackground(new java.awt.Color(38, 50, 56));
         paneContent.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        paneContent.setFocusable(false);
 
         javax.swing.GroupLayout paneContentLayout = new javax.swing.GroupLayout(paneContent);
         paneContent.setLayout(paneContentLayout);
@@ -177,6 +208,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         paneContent.setBounds(920, 250, 350, 420);
 
         lblImageActual.setBackground(new java.awt.Color(55, 71, 79));
+        lblImageActual.setFocusable(false);
         lblImageActual.setOpaque(true);
         jScrollPane1.setViewportView(lblImageActual);
 
@@ -263,7 +295,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuSubstractImage.setBackground(new java.awt.Color(102, 102, 102));
         menuSubstractImage.setBorder(null);
         menuSubstractImage.setForeground(new java.awt.Color(255, 255, 255));
-        menuSubstractImage.setText("Imagen");
+        menuSubstractImage.setText("Editar");
         menuSubstractImage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuSubstractImage.setOpaque(true);
 
@@ -381,6 +413,20 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menuBarPrincipal.add(menuConfiguracion);
 
+        jMenu2.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu2.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu2.setText("Navegar");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu2.setOpaque(true);
+
+        jMenuItem1.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem1.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem1.setText("Atras");
+        jMenuItem1.setOpaque(true);
+        jMenu2.add(jMenuItem1);
+
+        menuBarPrincipal.add(jMenu2);
+
         setJMenuBar(menuBarPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -400,13 +446,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileCloseActionPerformed
-        int option = JOptionPane.showConfirmDialog(null,
-                "Se perdera todo lo aplicado en la imagen, esta seguro ?","Salir",JOptionPane.YES_NO_OPTION);
-        
-        if (option == JOptionPane.YES_OPTION){
-            new frmStart().setVisible(true);
-            this.dispose();
-        }
+        exit();
     }//GEN-LAST:event_itemFileCloseActionPerformed
 
     private void menuBarPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBarPrincipalMousePressed
@@ -472,16 +512,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemBrilloActionPerformed
 
     private void itemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("extension jpg", "jpg"));
-        int n = chooser.showOpenDialog(null);
-        
-        if( n == JFileChooser.APPROVE_OPTION){
-            File file = chooser.getSelectedFile();
-            BufferedImage imageAdded = new AddImage(file).add();
-            lblImageActual.setIcon(new ImageIcon(imageAdded));
-            frmPrincipal.bufferedActualImage = imageAdded;
-        }
+        changePane(new PaneAddImage());
     }//GEN-LAST:event_itemAddActionPerformed
 
     private void itemSubstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSubstractActionPerformed
@@ -516,6 +547,26 @@ public class frmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemPseudoColorActionPerformed
 
+    class ListenerKey implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if((int)e.getKeyChar() == KeyEvent.VK_ESCAPE){
+                exit();
+            }
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+        
+    }
+            
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemAdd;
@@ -529,6 +580,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSubstract;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
