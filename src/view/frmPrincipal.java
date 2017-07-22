@@ -28,6 +28,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     public static boolean scaleAlgorithmAverage = true;
     public static boolean scaleAlgorithmLineBefore = false;
     
+    public static boolean modeRGB = false;
+    public static boolean modeGray = false;
+    
     public frmPrincipal(String path){
         initComponents();  
         setLocationRelativeTo(null);
@@ -44,6 +47,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         showImageOnlblOriginalImage();
         showImageOnlblImageActual();
         
+        if(this.originalImage.getNumberOfchannels() == 3){
+            modeRGB = true;
+        }else{
+            modeGray = true;
+        }
         System.out.println("Nro de canales : " + originalImage.getNumberOfchannels());
         
     }

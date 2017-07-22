@@ -1,8 +1,6 @@
 package model;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -154,39 +152,6 @@ public static void guardarImagen(double [][]matriz_R, double [][]matriz_G, doubl
         }
     }
    
-   @Override
-    public void paint(Graphics g) {
-        int x;
-        int y=800;  //valor estandar de y
-        int p=0;
-        int q=0;
-        
-        x = img.getWidth(null) * y/img.getHeight(null);
-        y = img.getHeight(null) * y/img.getHeight(null);
-        
-        g.drawImage(img, 100, 100, null);
-        g.drawImage(img, 0, 0, x, y, 0, 0, img.getWidth(null), img.getHeight(null), null);
-        //Graphics2D g2 = (Graphics2D) g;           
-      
-    }
-
-    @Override
-    public Dimension getPreferredSize()
-    {
-        int x;
-    	int y=800;
-        if (img == null)
-        {
-             return new Dimension(100,100);
-        }
-        else
-        {
-             x = img.getWidth(null) * y/img.getHeight(null);
-             y = img.getHeight(null) * y/img.getHeight(null);
-             return new Dimension(x, y);
-          }
-    }
-
     public int getNumberOfchannels() {
         return numberOfchannels;
     }
