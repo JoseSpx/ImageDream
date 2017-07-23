@@ -65,7 +65,6 @@ public class PaneAddImage extends javax.swing.JPanel {
         btnChooseAnImageToAdd = new javax.swing.JButton();
         paneContainerImageAdded = new javax.swing.JPanel();
         lblImageToAdd = new javax.swing.JLabel();
-        btnSeeImageAdded = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(350, 420));
 
@@ -94,29 +93,13 @@ public class PaneAddImage extends javax.swing.JPanel {
         lblImageToAdd.setBackground(new java.awt.Color(30, 50, 56));
         lblImageToAdd.setOpaque(true);
 
-        btnSeeImageAdded.setBackground(new java.awt.Color(207, 216, 220));
-        btnSeeImageAdded.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSeeImageAdded.setForeground(new java.awt.Color(84, 110, 122));
-        btnSeeImageAdded.setText("Ver la Imagen");
-        btnSeeImageAdded.setFocusPainted(false);
-        btnSeeImageAdded.setFocusable(false);
-        btnSeeImageAdded.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeeImageAddedActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout paneContainerImageAddedLayout = new javax.swing.GroupLayout(paneContainerImageAdded);
         paneContainerImageAdded.setLayout(paneContainerImageAddedLayout);
         paneContainerImageAddedLayout.setHorizontalGroup(
             paneContainerImageAddedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(btnSeeImageAdded)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImageToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImageToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addContainerGap())
         );
         paneContainerImageAddedLayout.setVerticalGroup(
@@ -124,9 +107,7 @@ public class PaneAddImage extends javax.swing.JPanel {
             .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblImageToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSeeImageAdded)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,14 +171,9 @@ public class PaneAddImage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnChooseAnImageToAddActionPerformed
 
-    private void btnSeeImageAddedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeImageAddedActionPerformed
-        
-    }//GEN-LAST:event_btnSeeImageAddedActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChooseAnImageToAdd;
-    private javax.swing.JButton btnSeeImageAdded;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblImageToAdd;
     private javax.swing.JPanel paneContainerImageAdded;

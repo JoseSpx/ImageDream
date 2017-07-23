@@ -5,10 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.AddImage;
 import model.MyImage;
+import model.SubstractImage;
 import static view.frmPrincipal.lblImageActual;
 
 public class PaneSubstractImage extends javax.swing.JPanel {
@@ -24,10 +26,10 @@ public class PaneSubstractImage extends javax.swing.JPanel {
         int [] dimensions;
         dimensions = resizeOriginalImageToLabel(310,172);
         
-        lblImageToAdd.setIcon(new ImageIcon(
+        lblImageToSubstract.setIcon(new ImageIcon(
                 new ImageIcon(pathImage).getImage().getScaledInstance(dimensions[0],dimensions[1], Image.SCALE_DEFAULT)));
-        lblImageToAdd.setHorizontalAlignment(SwingConstants.CENTER);
-        lblImageToAdd.setVerticalAlignment(SwingConstants.CENTER);
+        lblImageToSubstract.setHorizontalAlignment(SwingConstants.CENTER);
+        lblImageToSubstract.setVerticalAlignment(SwingConstants.CENTER);
     }
     
     public int [] resizeOriginalImageToLabel(int widthLabel, int heightLabel){
@@ -61,10 +63,9 @@ public class PaneSubstractImage extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        btnChooseAnImageToAdd = new javax.swing.JButton();
+        btnChooseAnImageTosubstract = new javax.swing.JButton();
         paneContainerImageAdded = new javax.swing.JPanel();
-        lblImageToAdd = new javax.swing.JLabel();
-        btnSeeImageAdded = new javax.swing.JButton();
+        lblImageToSubstract = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(350, 420));
 
@@ -77,30 +78,20 @@ public class PaneSubstractImage extends javax.swing.JPanel {
         title.setText("Restar una Imagen");
         title.setOpaque(true);
 
-        btnChooseAnImageToAdd.setBackground(new java.awt.Color(207, 216, 220));
-        btnChooseAnImageToAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnChooseAnImageToAdd.setForeground(new java.awt.Color(84, 110, 122));
-        btnChooseAnImageToAdd.setText("Elegir una Imagen");
-        btnChooseAnImageToAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnChooseAnImageTosubstract.setBackground(new java.awt.Color(207, 216, 220));
+        btnChooseAnImageTosubstract.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChooseAnImageTosubstract.setForeground(new java.awt.Color(84, 110, 122));
+        btnChooseAnImageTosubstract.setText("Elegir una Imagen");
+        btnChooseAnImageTosubstract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChooseAnImageToAddActionPerformed(evt);
+                btnChooseAnImageTosubstractActionPerformed(evt);
             }
         });
 
         paneContainerImageAdded.setBackground(new java.awt.Color(30, 50, 56));
 
-        lblImageToAdd.setBackground(new java.awt.Color(30, 50, 56));
-        lblImageToAdd.setOpaque(true);
-
-        btnSeeImageAdded.setBackground(new java.awt.Color(207, 216, 220));
-        btnSeeImageAdded.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSeeImageAdded.setForeground(new java.awt.Color(84, 110, 122));
-        btnSeeImageAdded.setText("Ver la Imagen");
-        btnSeeImageAdded.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeeImageAddedActionPerformed(evt);
-            }
-        });
+        lblImageToSubstract.setBackground(new java.awt.Color(30, 50, 56));
+        lblImageToSubstract.setOpaque(true);
 
         javax.swing.GroupLayout paneContainerImageAddedLayout = new javax.swing.GroupLayout(paneContainerImageAdded);
         paneContainerImageAdded.setLayout(paneContainerImageAddedLayout);
@@ -108,21 +99,15 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             paneContainerImageAddedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImageToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(lblImageToSubstract, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneContainerImageAddedLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSeeImageAdded)
-                .addGap(99, 99, 99))
         );
         paneContainerImageAddedLayout.setVerticalGroup(
             paneContainerImageAddedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneContainerImageAddedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImageToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSeeImageAdded)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(lblImageToSubstract, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -132,7 +117,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnChooseAnImageToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChooseAnImageTosubstract, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -144,7 +129,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnChooseAnImageToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChooseAnImageTosubstract, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(paneContainerImageAdded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 34, Short.MAX_VALUE))
@@ -162,33 +147,34 @@ public class PaneSubstractImage extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
           
-    private void btnChooseAnImageToAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseAnImageToAddActionPerformed
+    private void btnChooseAnImageTosubstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseAnImageTosubstractActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("extension jpg", "jpg"));
         int n = chooser.showOpenDialog(null);
         
         if( n == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
-            BufferedImage imageAdded = new AddImage(file).add();
-            lblImageActual.setIcon(new ImageIcon(imageAdded));
-            frmPrincipal.bufferedActualImage = imageAdded;
-            btnChooseAnImageToAdd.setText("Cambiar Imagen");
             myImage = new MyImage(file.getAbsolutePath());
-            showImageOnlbl(file.getAbsolutePath());
-            paneContainerImageAdded.setVisible(true);
+            int numBands = myImage.getNumberOfchannels();
+            if((numBands == 3 && frmPrincipal.modeRGB) || (numBands == 1 && frmPrincipal.modeGray)){
+                BufferedImage imageSubstract = new SubstractImage(file).substract();
+                lblImageActual.setIcon(new ImageIcon(imageSubstract));
+                frmPrincipal.bufferedActualImage = imageSubstract;
+                btnChooseAnImageTosubstract.setText("Cambiar Imagen");
+                showImageOnlbl(file.getAbsolutePath());
+                paneContainerImageAdded.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Formatos no Compatibles");
+            }
         }
-    }//GEN-LAST:event_btnChooseAnImageToAddActionPerformed
-
-    private void btnSeeImageAddedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeImageAddedActionPerformed
-        
-    }//GEN-LAST:event_btnSeeImageAddedActionPerformed
+    }//GEN-LAST:event_btnChooseAnImageTosubstractActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChooseAnImageToAdd;
-    private javax.swing.JButton btnSeeImageAdded;
+    private javax.swing.JButton btnChooseAnImageTosubstract;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblImageToAdd;
+    private javax.swing.JLabel lblImageToSubstract;
     private javax.swing.JPanel paneContainerImageAdded;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

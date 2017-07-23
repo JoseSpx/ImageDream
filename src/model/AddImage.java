@@ -87,7 +87,7 @@ public class AddImage {
 
                 return newImage;
             }
-            else{System.out.println("centradooo");
+            else{
                 BufferedImage imageActual = frmPrincipal.bufferedActualImage;
         
                 int widthImageActual = imageActual.getWidth();
@@ -133,8 +133,8 @@ public class AddImage {
                 }
 
                 //sumamos la segunda imagen por promedio
-                startX = ( width - widthImageToAdd ) / 2;System.out.println("X : " + startX);
-                startY = ( height - heightImageToAdd ) / 2;System.out.println("Y : " + startY);
+                startX = ( width - widthImageToAdd ) / 2;//System.out.println("X : " + startX);
+                startY = ( height - heightImageToAdd ) / 2;//System.out.println("Y : " + startY);
                 Color actual;
                 Color add;
                 for (int i = 0; i < heightImageToAdd ; i++) {

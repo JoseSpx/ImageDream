@@ -35,6 +35,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     public static boolean addImageExtremeLeft = true;
     public static boolean addImageCentered = false;
     
+    public static boolean substractImageExtremeLeft = true;
+    public static boolean substractImageCentered = false;
+    
     public static boolean modeRGB = false;
     public static boolean modeGray = false;
     
@@ -85,6 +88,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         radioGroupAddImage.add(radioAddImageCenter);
         radioGroupAddImage.add(radioAddImageExtremeLeft);
         
+        radioSubstractImageExtremeLeft.setSelected(true);
+        radioGroupSubstractImage.add(radioSubstractImageCentered);
+        radioGroupSubstractImage.add(radioSubstractImageExtremeLeft);
     }
     
     public void changePane(JPanel panelElegido){
@@ -151,6 +157,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         radioGroupEscalar = new javax.swing.ButtonGroup();
         radioGroupAddImage = new javax.swing.ButtonGroup();
+        radioGroupSubstractImage = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblOriginalImage = new javax.swing.JLabel();
@@ -178,6 +185,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemAddImage = new javax.swing.JMenu();
         radioAddImageExtremeLeft = new javax.swing.JRadioButtonMenuItem();
         radioAddImageCenter = new javax.swing.JRadioButtonMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        radioSubstractImageExtremeLeft = new javax.swing.JRadioButtonMenuItem();
+        radioSubstractImageCentered = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -452,6 +462,35 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menuConfiguracion.add(itemAddImage);
 
+        jMenu3.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu3.setText("Restar Imagen Desde");
+        jMenu3.setOpaque(true);
+
+        radioSubstractImageExtremeLeft.setBackground(new java.awt.Color(102, 102, 102));
+        radioSubstractImageExtremeLeft.setForeground(new java.awt.Color(255, 255, 255));
+        radioSubstractImageExtremeLeft.setText("Extremo Izquierdo");
+        radioSubstractImageExtremeLeft.setOpaque(true);
+        radioSubstractImageExtremeLeft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioSubstractImageExtremeLeftActionPerformed(evt);
+            }
+        });
+        jMenu3.add(radioSubstractImageExtremeLeft);
+
+        radioSubstractImageCentered.setBackground(new java.awt.Color(102, 102, 102));
+        radioSubstractImageCentered.setForeground(new java.awt.Color(255, 255, 255));
+        radioSubstractImageCentered.setText("Centro");
+        radioSubstractImageCentered.setOpaque(true);
+        radioSubstractImageCentered.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioSubstractImageCenteredActionPerformed(evt);
+            }
+        });
+        jMenu3.add(radioSubstractImageCentered);
+
+        menuConfiguracion.add(jMenu3);
+
         menuBarPrincipal.add(menuConfiguracion);
 
         jMenu2.setBackground(new java.awt.Color(102, 102, 102));
@@ -531,6 +570,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void menuResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuResetActionPerformed
         lblImageActual.setIcon(new ImageIcon(bufferedOriginalImage));
         frmPrincipal.bufferedActualImage = bufferedOriginalImage;
+        
     }//GEN-LAST:event_menuResetActionPerformed
 
     private void itemFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileOpenActionPerformed
@@ -557,7 +597,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemAddActionPerformed
 
     private void itemSubstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSubstractActionPerformed
-        JFileChooser chooser = new JFileChooser();
+        changePane(new PaneSubstractImage());
+        /*JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("extension jpg", "jpg"));
         int n = chooser.showOpenDialog(null);
         
@@ -566,7 +607,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             BufferedImage image = new SubstractImage(file).substract();
             lblImageActual.setIcon(new ImageIcon(image));
             frmPrincipal.bufferedActualImage = image;
-        }
+        }*/
     }//GEN-LAST:event_itemSubstractActionPerformed
 
     private void itemBinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarActionPerformed
@@ -597,6 +638,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         addImageCentered = true;
         addImageExtremeLeft = false;
     }//GEN-LAST:event_radioAddImageCenterActionPerformed
+
+    private void radioSubstractImageCenteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSubstractImageCenteredActionPerformed
+        substractImageCentered = true;
+        substractImageExtremeLeft = false;
+    }//GEN-LAST:event_radioSubstractImageCenteredActionPerformed
+
+    private void radioSubstractImageExtremeLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSubstractImageExtremeLeftActionPerformed
+        substractImageCentered = false;
+        substractImageExtremeLeft = true;
+    }//GEN-LAST:event_radioSubstractImageExtremeLeftActionPerformed
 
     class ListenerKey implements KeyListener{
 
@@ -633,6 +684,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -649,7 +701,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem radioAddImageExtremeLeft;
     private javax.swing.ButtonGroup radioGroupAddImage;
     private javax.swing.ButtonGroup radioGroupEscalar;
+    private javax.swing.ButtonGroup radioGroupSubstractImage;
     public static javax.swing.JRadioButtonMenuItem radioLineaAnterior;
     public static javax.swing.JRadioButtonMenuItem radioPromedio;
+    private javax.swing.JRadioButtonMenuItem radioSubstractImageCentered;
+    private javax.swing.JRadioButtonMenuItem radioSubstractImageExtremeLeft;
     // End of variables declaration//GEN-END:variables
 }
