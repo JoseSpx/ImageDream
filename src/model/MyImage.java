@@ -47,12 +47,12 @@ public class MyImage extends Component
     	WritableRaster raster=img.getRaster();
     	this.numberOfchannels =raster.getNumBands(); 
 
-    	for (int i=0;i<filas;i++) 
-    	{
-            for(int j=0;j<columnas;j++) 
-            {
-                if (this.numberOfchannels == 3)
-                {   r=raster.getSampleDouble(j,i,0);
+    	for (int i=0;i<filas;i++){
+            
+            for(int j=0;j<columnas;j++){
+                
+                if (this.numberOfchannels == 3){
+                    r=raster.getSampleDouble(j,i,0);
                     g=raster.getSampleDouble(j,i,1);
                     b=raster.getSampleDouble(j,i,2);
                  
@@ -61,11 +61,11 @@ public class MyImage extends Component
                     matrizImg_G[i][j]=g;
                     matrizImg_B[i][j]=b;
                 }
-                if (this.numberOfchannels == 1)
-                {   matrizImg[i][j]=raster.getSampleDouble(j,i,0);
-                    matrizImg_R[i][j]=255;
-                    matrizImg_G[i][j]=255;
-                    matrizImg_B[i][j]=255;
+                if (this.numberOfchannels == 1){
+                    matrizImg[i][j]=raster.getSampleDouble(j,i,0);
+                    //matrizImg_R[i][j]=255;
+                    //matrizImg_G[i][j]=255;
+                    //matrizImg_B[i][j]=255;
                 }
             }
         }
@@ -127,7 +127,7 @@ public class MyImage extends Component
         catch(IOException e){}
     }
 
-public static void guardarImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B,String path)
+    public static void guardarImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B,String path)
  {
         BufferedImage imgn = new BufferedImage(matriz_R[0].length,matriz_R.length,BufferedImage.TYPE_INT_RGB);
         WritableRaster wr = imgn.getRaster();

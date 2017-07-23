@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.AddImage;
@@ -166,19 +167,26 @@ public class PaneAddImage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
           
     private void btnChooseAnImageToAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseAnImageToAddActionPerformed
+       
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("extension jpg", "jpg"));
         int n = chooser.showOpenDialog(null);
         
         if( n == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
-            BufferedImage imageAdded = new AddImage(file).add();
-            lblImageActual.setIcon(new ImageIcon(imageAdded));
-            frmPrincipal.bufferedActualImage = imageAdded;
-            btnChooseAnImageToAdd.setText("Cambiar Imagen");
             myImage = new MyImage(file.getAbsolutePath());
-            showImageOnlbl(file.getAbsolutePath());
-            paneContainerImageAdded.setVisible(true);
+            int numBands = myImage.getNumberOfchannels();
+            if((numBands == 3 && frmPrincipal.modeRGB) || (numBands == 1 && frmPrincipal.modeGray)){
+                BufferedImage imageAdded = new AddImage(file).add();
+                lblImageActual.setIcon(new ImageIcon(imageAdded));
+                frmPrincipal.bufferedActualImage = imageAdded;
+                btnChooseAnImageToAdd.setText("Cambiar Imagen");
+                showImageOnlbl(file.getAbsolutePath());
+                paneContainerImageAdded.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Formatos no Compatibles");
+            }
         }
     }//GEN-LAST:event_btnChooseAnImageToAddActionPerformed
 
