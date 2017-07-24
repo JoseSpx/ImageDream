@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.AddImage;
 import model.MyImage;
 import model.SubstractImage;
+import model.SubstractImage2;
 import static view.frmPrincipal.lblImageActual;
 
 public class PaneSubstractImage extends javax.swing.JPanel {
@@ -82,6 +83,8 @@ public class PaneSubstractImage extends javax.swing.JPanel {
         btnChooseAnImageTosubstract.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnChooseAnImageTosubstract.setForeground(new java.awt.Color(84, 110, 122));
         btnChooseAnImageTosubstract.setText("Elegir una Imagen");
+        btnChooseAnImageTosubstract.setFocusPainted(false);
+        btnChooseAnImageTosubstract.setFocusable(false);
         btnChooseAnImageTosubstract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChooseAnImageTosubstractActionPerformed(evt);
@@ -157,7 +160,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             myImage = new MyImage(file.getAbsolutePath());
             int numBands = myImage.getNumberOfchannels();
             if((numBands == 3 && frmPrincipal.modeRGB) || (numBands == 1 && frmPrincipal.modeGray)){
-                BufferedImage imageSubstract = new SubstractImage(file).substract();
+                BufferedImage imageSubstract = new SubstractImage2(file).substract();
                 lblImageActual.setIcon(new ImageIcon(imageSubstract));
                 frmPrincipal.bufferedActualImage = imageSubstract;
                 btnChooseAnImageTosubstract.setText("Cambiar Imagen");

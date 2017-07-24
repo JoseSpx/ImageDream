@@ -570,7 +570,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void menuResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuResetActionPerformed
         lblImageActual.setIcon(new ImageIcon(bufferedOriginalImage));
         frmPrincipal.bufferedActualImage = bufferedOriginalImage;
-        
+        changePane(new PaneEmpty());
     }//GEN-LAST:event_menuResetActionPerformed
 
     private void itemFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileOpenActionPerformed
@@ -584,7 +584,20 @@ public class frmPrincipal extends javax.swing.JFrame {
             if( accept == JOptionPane.YES_OPTION){
                 File file = chooser.getSelectedFile();
                 initBufferedImage(file.getAbsolutePath());
+            
+                MyImage imageOpened = new MyImage(file.getAbsolutePath());
+                int numBands = imageOpened.getNumberOfchannels();
+                
+                if(numBands == 3){
+                    modeRGB = true;
+                    modeGray = false;
+                }
+                else{
+                    modeRGB = false;
+                    modeGray = true;
+                }
             }
+            
         }
     }//GEN-LAST:event_itemFileOpenActionPerformed
 
