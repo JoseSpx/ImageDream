@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
+import model.CMYK;
 import model.MyImage;
 import model.PseudoColor;
 
@@ -183,6 +184,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinar = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        itemMenuCMYK = new javax.swing.JMenuItem();
         menuConfiguracion = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         radioPromedio = new javax.swing.JRadioButtonMenuItem();
@@ -399,6 +402,25 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuSubstractImage.add(menuReset);
 
         menuBarPrincipal.add(menuSubstractImage);
+
+        jMenu5.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu5.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu5.setText("Modo");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu5.setOpaque(true);
+
+        itemMenuCMYK.setBackground(new java.awt.Color(102, 102, 102));
+        itemMenuCMYK.setForeground(new java.awt.Color(255, 255, 255));
+        itemMenuCMYK.setText("CMYK");
+        itemMenuCMYK.setOpaque(true);
+        itemMenuCMYK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuCMYKActionPerformed(evt);
+            }
+        });
+        jMenu5.add(itemMenuCMYK);
+
+        menuBarPrincipal.add(jMenu5);
 
         menuConfiguracion.setBackground(new java.awt.Color(102, 102, 102));
         menuConfiguracion.setBorder(null);
@@ -681,6 +703,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         substractImageExtremeLeft = true;
     }//GEN-LAST:event_radioSubstractImageExtremeLeftActionPerformed
 
+    private void itemMenuCMYKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuCMYKActionPerformed
+        if(modeRGB){
+            BufferedImage bufferedImage = new CMYK(bufferedActualImage).apply();
+            lblImageActual.setIcon(new ImageIcon(bufferedImage));
+            bufferedActualImage = bufferedImage;
+            bufferedActualImageCopy = bufferedImage;
+            
+            JOptionPane.showMessageDialog(null,"Se aplico la imagen en modo CMYK ");
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Solo es aplicable para imagenes RGB");
+        }
+    }//GEN-LAST:event_itemMenuCMYKActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -711,12 +747,14 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFileClose;
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
+    private javax.swing.JMenuItem itemMenuCMYK;
     private javax.swing.JMenuItem itemPseudoColor;
     private javax.swing.JMenuItem itemSubstract;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
