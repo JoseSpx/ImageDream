@@ -1,6 +1,7 @@
 
 package view;
 
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import model.Bright;
 
@@ -77,7 +78,9 @@ public class PaneBright extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sliderBrightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderBrightStateChanged
-        frmPrincipal.lblImageActual.setIcon(new ImageIcon(new Bright(this.sliderBright.getValue()).getNewImage()));
+        BufferedImage bufferedImage = new Bright(this.sliderBright.getValue()).getNewImage();
+        frmPrincipal.lblImageActual.setIcon(new ImageIcon(bufferedImage));
+        frmPrincipal.bufferedActualImage = bufferedImage;
     }//GEN-LAST:event_sliderBrightStateChanged
 
 

@@ -26,6 +26,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     public static BufferedImage bufferedOriginalImage = null;
     public static BufferedImage bufferedActualImage = null;
+    public static BufferedImage bufferedActualImageCopy = null;
     public static BufferedImage bufferedBeforeImage = null;
     public static BufferedImage bufferedAfterImage = null;
     
@@ -59,6 +60,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.originalImage = new MyImage(pathImage);
         bufferedOriginalImage = this.originalImage.getImg();
         bufferedActualImage = this.originalImage.getImg();
+        bufferedActualImageCopy = bufferedActualImage;
         showImageOnlblOriginalImage();
         showImageOnlblImageActual();
         
@@ -67,8 +69,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         }else{
             modeGray = true;
         }
-        System.out.println("Nro de canales : " + originalImage.getNumberOfchannels());
-        
+ 
     }
     
     public void listeners(){
@@ -574,6 +575,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void menuResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuResetActionPerformed
         lblImageActual.setIcon(new ImageIcon(bufferedOriginalImage));
         frmPrincipal.bufferedActualImage = bufferedOriginalImage;
+        bufferedActualImageCopy = bufferedOriginalImage;
         changePane(new PaneEmpty());
         
         if(modeGrayBefore){
@@ -605,6 +607,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                     modeRGB = false;
                     modeGray = true;
                 }
+                
+                modeGrayBefore = false;
+                modeRGBbefore = false;
+                
+                changePane(new PaneEmpty());
+                
             }
             
         }
@@ -626,6 +634,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         if(modeRGB){
             BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply();
             frmPrincipal.bufferedActualImage = bufferedImage;
+            bufferedActualImageCopy = bufferedImage;
             lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
         }
         else{
@@ -644,6 +653,8 @@ public class frmPrincipal extends javax.swing.JFrame {
             
             modeGrayBefore = true;
             modeRGBbefore = false;
+            
+            bufferedActualImageCopy = bufferedImage;
             
         }else{
             JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en Escala de Grises");

@@ -164,6 +164,7 @@ public class PaneAddImage extends javax.swing.JPanel {
                 btnChooseAnImageToAdd.setText("Cambiar Imagen");
                 showImageOnlbl(file.getAbsolutePath());
                 paneContainerImageAdded.setVisible(true);
+                frmPrincipal.bufferedActualImageCopy = imageAdded;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Formatos no Compatibles");

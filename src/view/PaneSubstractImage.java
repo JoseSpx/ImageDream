@@ -164,6 +164,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
                 btnChooseAnImageTosubstract.setText("Cambiar Imagen");
                 showImageOnlbl(file.getAbsolutePath());
                 paneContainerImageAdded.setVisible(true);
+                frmPrincipal.bufferedActualImageCopy = imageSubstract;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Formatos no Compatibles");
