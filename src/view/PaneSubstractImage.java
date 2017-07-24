@@ -8,10 +8,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.AddImage;
 import model.MyImage;
 import model.SubstractImage;
-import model.SubstractImage2;
 import static view.frmPrincipal.lblImageActual;
 
 public class PaneSubstractImage extends javax.swing.JPanel {
@@ -160,7 +158,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             myImage = new MyImage(file.getAbsolutePath());
             int numBands = myImage.getNumberOfchannels();
             if((numBands == 3 && frmPrincipal.modeRGB) || (numBands == 1 && frmPrincipal.modeGray)){
-                BufferedImage imageSubstract = new SubstractImage2(file).substract();
+                BufferedImage imageSubstract = new SubstractImage(file).substract();
                 lblImageActual.setIcon(new ImageIcon(imageSubstract));
                 frmPrincipal.bufferedActualImage = imageSubstract;
                 btnChooseAnImageTosubstract.setText("Cambiar Imagen");

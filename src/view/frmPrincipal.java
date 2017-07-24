@@ -14,7 +14,6 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.MyImage;
-import model.SubstractImage;
 
 public class frmPrincipal extends javax.swing.JFrame {
 
@@ -611,16 +610,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void itemSubstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSubstractActionPerformed
         changePane(new PaneSubstractImage());
-        /*JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("extension jpg", "jpg"));
-        int n = chooser.showOpenDialog(null);
-        
-        if( n == JFileChooser.APPROVE_OPTION){
-            File file = chooser.getSelectedFile();
-            BufferedImage image = new SubstractImage(file).substract();
-            lblImageActual.setIcon(new ImageIcon(image));
-            frmPrincipal.bufferedActualImage = image;
-        }*/
     }//GEN-LAST:event_itemSubstractActionPerformed
 
     private void itemBinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarActionPerformed

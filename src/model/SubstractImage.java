@@ -32,7 +32,7 @@ public class SubstractImage {
                 return substractRGBCentered();
             }
         }else{
-            if(frmPrincipal.substractImageExtremeLeft){
+            if(frmPrincipal.substractImageExtremeLeft){System.out.println("entro aqui left");
                 return substractGrayExtremeLeft();
             }
             else{
@@ -296,7 +296,7 @@ public class SubstractImage {
         
         //creamos otro buffer con la imagen a restar
         
-        BufferedImage bufferedSubstractImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bufferedSubstractImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
         WritableRaster writableRasterSubstractImage = bufferedSubstractImage.getRaster();
         
         for (int i = 0; i < height; i++) {
@@ -313,7 +313,7 @@ public class SubstractImage {
         
         //creamos otro buffer con la imagen de resultado
         
-        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
         WritableRaster writableRasterNewImage = newImage.getRaster();
         
         double difference;
@@ -335,8 +335,99 @@ public class SubstractImage {
         return newImage;
     }
 
-    private BufferedImage substractGrayCentered() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private BufferedImage substractGrayCentered() {//System.out.println("resta centro");
+        BufferedImage imageActual = frmPrincipal.bufferedActualImage;
+        WritableRaster writableRasterImageActual = imageActual.getRaster();
+        
+        WritableRaster writableRasterImageToSusbtract = imageToSusbtract.getRaster();
+        
+        int widthImageActual = imageActual.getWidth();
+        int heightImageActual = imageActual.getHeight();
+        
+        int widthImageToSubstract = imageToSusbtract.getWidth();
+        int heightImageToSubstract = imageToSusbtract.getHeight();
+        
+        int width, height;
+        
+        if(widthImageActual >= widthImageToSubstract){
+            width = widthImageActual;
+        }else{
+            width = widthImageToSubstract;
+        }
+        
+        if(heightImageActual >= heightImageToSubstract){
+            height = heightImageActual;
+        }else{
+            height = heightImageToSubstract;
+        }
+        
+        //creamos un buffer nuevo con el imageActual
+        BufferedImage bufferedActualImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster writableRasterNewImageActual = bufferedActualImage.getRaster();
+        
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                writableRasterNewImageActual.setSample(j, i, 0, 0);
+            }
+        }
+        
+        int startX;
+        int startY;
+        
+        startX = (width - widthImageActual) / 2;
+        startY = (height - heightImageActual) / 2;
+        
+        for (int i = 0; i < heightImageActual; i++) {
+            for (int j = 0; j < widthImageActual; j++) {
+                writableRasterNewImageActual.setSample(j + startX, i + startY, 0, writableRasterImageActual.getSample(j, i, 0));
+            }
+        }
+        
+        //creamos otro buffer con la imagen a restar
+        
+        BufferedImage bufferedSubstractImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster writableRasterSubstractImage = bufferedSubstractImage.getRaster();
+        
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                writableRasterSubstractImage.setSample(j, i, 0, 0);
+            }
+        }
+        
+        startX = (width - widthImageToSubstract) / 2;
+        startY = (height - heightImageToSubstract) / 2;
+        
+        
+        for (int i = 0; i < heightImageToSubstract; i++) {
+            for (int j = 0; j < widthImageToSubstract; j++) {
+                writableRasterSubstractImage.setSample(j + startX, i + startY, 0, writableRasterImageToSusbtract.getSample(j, i, 0));
+            }
+        }
+        
+        //creamos otro buffer con la imagen de resultado
+        
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster writableRasterNewImage = newImage.getRaster();
+        
+        int difference;
+        
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                difference = writableRasterNewImageActual.getSample(j, i, 0)
+                                - writableRasterSubstractImage.getSample(j, i, 0);
+                //System.out.println(writableRasterNewImageActual.getSample(j, i, 0) + " --- " + writableRasterSubstractImage.getSample(j, i, 0));
+                if(difference < 0){
+                    difference = 0;
+                }
+                
+                writableRasterNewImage.setSample(j, i, 0, difference);
+            }
+        }
+        
+        newImage.setData(writableRasterNewImage);
+        return newImage;
+        //bufferedActualImage.setData(writableRasterNewImageActual);
+        //return bufferedActualImage;
     }
     
     
