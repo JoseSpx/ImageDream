@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.MyImage;
+import model.PseudoColor;
 
 public class frmPrincipal extends javax.swing.JFrame {
 
@@ -39,6 +40,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     public static boolean modeRGB = false;
     public static boolean modeGray = false;
+    
+    public static boolean modeRGBbefore = false;
+    public static boolean modeGrayBefore = false;
+    
     
     public frmPrincipal(String path){
         initComponents();  
@@ -570,6 +575,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblImageActual.setIcon(new ImageIcon(bufferedOriginalImage));
         frmPrincipal.bufferedActualImage = bufferedOriginalImage;
         changePane(new PaneEmpty());
+        
+        if(modeGrayBefore){
+            modeGray = true;
+        }
+        
     }//GEN-LAST:event_menuResetActionPerformed
 
     private void itemFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileOpenActionPerformed
@@ -613,22 +623,31 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSubstractActionPerformed
 
     private void itemBinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarActionPerformed
-        BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply();
-        frmPrincipal.bufferedActualImage = bufferedImage;
-        lblImageActual.setIcon(new ImageIcon(bufferedImage));
-                
+        if(modeRGB){
+            BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply();
+            frmPrincipal.bufferedActualImage = bufferedImage;
+            lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en RGB");
+        }
+            
     }//GEN-LAST:event_itemBinarActionPerformed
 
     private void itemPseudoColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPseudoColorActionPerformed
-        MyImage myImage = new MyImage(bufferedActualImage);
-        int nroChanels = myImage.getNumberOfchannels();
-        
-        if( nroChanels == 1){
+        if(modeGray){
+            BufferedImage bufferedImage = new PseudoColor(bufferedActualImage).apply();
+            frmPrincipal.bufferedActualImage = bufferedImage;
+            lblImageActual.setIcon(new ImageIcon(bufferedImage));
+            modeRGB = true;
+            modeGray = false;
+            
+            modeGrayBefore = true;
+            modeRGBbefore = false;
             
         }else{
-            //JOptionPane.showme
+            JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en Escala de Grises");
         }
-        
     }//GEN-LAST:event_itemPseudoColorActionPerformed
 
     private void radioAddImageExtremeLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioAddImageExtremeLeftActionPerformed
