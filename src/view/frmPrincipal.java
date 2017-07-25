@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.CMYK;
+import model.HSI;
 import model.MyImage;
 import model.PseudoColor;
 
@@ -184,8 +185,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinar = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        menuModo = new javax.swing.JMenu();
         itemMenuCMYK = new javax.swing.JMenuItem();
+        menuItemHSI = new javax.swing.JMenuItem();
         menuConfiguracion = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         radioPromedio = new javax.swing.JRadioButtonMenuItem();
@@ -238,6 +240,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         paneContent.setBounds(920, 250, 350, 420);
 
         lblImageActual.setBackground(new java.awt.Color(55, 71, 79));
+        lblImageActual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImageActual.setFocusable(false);
         lblImageActual.setOpaque(true);
         jScrollPane1.setViewportView(lblImageActual);
@@ -403,11 +406,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menuBarPrincipal.add(menuSubstractImage);
 
-        jMenu5.setBackground(new java.awt.Color(102, 102, 102));
-        jMenu5.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu5.setText("Modo");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu5.setOpaque(true);
+        menuModo.setBackground(new java.awt.Color(102, 102, 102));
+        menuModo.setForeground(new java.awt.Color(255, 255, 255));
+        menuModo.setText("Modo");
+        menuModo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuModo.setOpaque(true);
 
         itemMenuCMYK.setBackground(new java.awt.Color(102, 102, 102));
         itemMenuCMYK.setForeground(new java.awt.Color(255, 255, 255));
@@ -418,9 +421,20 @@ public class frmPrincipal extends javax.swing.JFrame {
                 itemMenuCMYKActionPerformed(evt);
             }
         });
-        jMenu5.add(itemMenuCMYK);
+        menuModo.add(itemMenuCMYK);
 
-        menuBarPrincipal.add(jMenu5);
+        menuItemHSI.setBackground(new java.awt.Color(102, 102, 102));
+        menuItemHSI.setForeground(new java.awt.Color(255, 255, 255));
+        menuItemHSI.setText("HSI");
+        menuItemHSI.setOpaque(true);
+        menuItemHSI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemHSIActionPerformed(evt);
+            }
+        });
+        menuModo.add(menuItemHSI);
+
+        menuBarPrincipal.add(menuModo);
 
         menuConfiguracion.setBackground(new java.awt.Color(102, 102, 102));
         menuConfiguracion.setBorder(null);
@@ -717,6 +731,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemMenuCMYKActionPerformed
 
+    private void menuItemHSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHSIActionPerformed
+        if(modeRGB){
+            BufferedImage bufferedImage = new HSI(bufferedActualImage).apply();
+            lblImageActual.setIcon(new ImageIcon(bufferedImage));
+            bufferedActualImage = bufferedImage;
+            bufferedActualImageCopy = bufferedImage;
+            
+            JOptionPane.showMessageDialog(null,"Se aplico la imagen en modo CMYK ");
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Solo es aplicable para imagenes RGB");
+        }
+    }//GEN-LAST:event_menuItemHSIActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -754,7 +782,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -764,6 +791,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBarPrincipal;
     private javax.swing.JMenu menuConfiguracion;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JMenuItem menuItemHSI;
+    private javax.swing.JMenu menuModo;
     private javax.swing.JMenuItem menuReset;
     private javax.swing.JMenu menuSubstractImage;
     private javax.swing.JPanel paneContent;
