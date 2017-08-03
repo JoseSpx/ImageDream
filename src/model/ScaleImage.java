@@ -51,7 +51,7 @@ public class ScaleImage {
         if(type == WIDHT){
             if( percentage > 100){System.out.println("entroo");
                 newPixels = getNumberOfNewPixels(width, percentage - 100);
-                ArrayList<Integer> listOfIndexes = getArrayOfIndexesOfNewPixels(width, newPixels);
+                int step = width / newPixels;
                 
                 R = new double[height][width + newPixels];
                 G = new double[height][width + newPixels];
@@ -66,30 +66,14 @@ public class ScaleImage {
                     }
                 }
                 
-                if( frmPrincipal.scaleAlgorithmAverage ){
+                if( frmPrincipal.scaleAlgorithmAverage ){System.out.println("Promedio");
                     //ingresamos lo nuevos pixeles
                     double before;
                     double after;
                     double average;
                     
                     for(int i = 0; i < height; i++) {
-                        for(Integer number : listOfIndexes) {
-                            before = matrixR[i][number - 1];
-                            after = matrixR[i][number];
-                            average = ( before + after ) / 2;
-                            R[i][number] = average;
-                            
-                            before = matrixG[i][number - 1];
-                            after = matrixG[i][number];
-                            average = ( before + after ) / 2;
-                            G[i][number] = average;
-                            
-                            before = matrixB[i][number - 1];
-                            after = matrixB[i][number];
-                            average = ( before + after ) / 2;
-                            B[i][number] = average;
-                            
-                        }
+
                     }
                     
                     int cont = 0;
@@ -111,47 +95,28 @@ public class ScaleImage {
                     }
                     
                    
-                }else if( frmPrincipal.scaleAlgorithmLineBefore ){
+                }else if( frmPrincipal.scaleAlgorithmLineBefore ){System.out.println("Linea anterior");
                     
-                    //ingresamos lo nuevos pixeles
-                    double before;
-                    double after;
-                    double average;
-                    
+                    int contadorNewPixeles = 0;
+                    int contadorWidth = 0;
+                    int contadorHeight = 0;
+
                     for(int i = 0; i < height; i++) {
-                        for(Integer number : listOfIndexes) {
-                            before = matrixR[i][number - 1];
-                            after = matrixR[i][number];
-                            average = ( before + after ) / 2;
-                            R[i][number] = average;
-                            
-                            before = matrixG[i][number - 1];
-                            after = matrixG[i][number];
-                            average = ( before + after ) / 2;
-                            G[i][number] = average;
-                            
-                            before = matrixB[i][number - 1];
-                            after = matrixB[i][number];
-                            average = ( before + after ) / 2;
-                            B[i][number] = average;
-                            
-                        }
-                    }
-                    
-                    int cont = 0;
-                    int aux;
-                    
-                    for(int i = 0; i < height; i++) {
-                        for (int j = 0; j < width ; j++) {
-                            aux = j + cont;
-                            
-                            if(R[i][aux] != -1){
-                                cont++;
+                        for (int j = 0; j < width; j++) {
+
+                            if(j % step == 0 && contadorNewPixeles <= newPixels){
+                                
+                                contadorWidth++;
+                                contadorNewPixeles++;
                             }
                             else{
-                                R[i][aux] = new Color(image.getRGB(j, i)).getRed();
-                                G[i][aux] = new Color(image.getRGB(j, i)).getGreen();
-                                B[i][aux] = new Color(image.getRGB(j, i)).getBlue();
+                                
+                                R[i][contadorWidth] = new Color(image.getRGB(j, i)).getRed();
+                                G[i][contadorWidth] = new Color(image.getRGB(j, i)).getBlue();
+                                B[i][contadorWidth] = new Color(image.getRGB(j, i)).getGreen();
+                            
+                                contadorWidth++;
+                            
                             }
                         }
                     }
@@ -176,6 +141,10 @@ public class ScaleImage {
     
     
     public BufferedImage scaleGray(double [][] matrix){
+        
+        
+        
+        
         return null;
     }
     

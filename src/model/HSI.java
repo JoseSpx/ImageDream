@@ -20,21 +20,19 @@ public class HSI {
         double g;
         double b;
         
+        double rPrima;
+        double gPrima;
+        double bPrima;
+        
+        double cMax;
+        double cMin;
+        
+        double difference;
+        
         Color color;
         
-        double average;
-        double rn;
-        double gn;
-        double bn;
-        
-        double h;
-        double s;
-        
-        double pi = 3.141592;
-        
-        int rFinal;
-        int gFinal;
-        int bFinal;
+        double H = 0, S = 0, L = 0;
+        double C, X, M; 
         
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -44,69 +42,142 @@ public class HSI {
                 g = color.getGreen();
                 b = color.getBlue();
                 
-                //conversion a HSI
-                average = (r + g + b) / 3.0;
-                rn = r / (r + g + b);
-                gn = g / (r + g + b);
-                bn = b / (r + g + b);
-
-                h = Math.acos((0.5 * ((rn - gn) + (rn - bn))) / (Math.sqrt((rn - gn) * (rn - gn) + (rn - bn) * (gn - bn))));
-                if(b > g){
-                    h = 2 * pi - h;	
-                }
-
-                s = 1 - 3 * Math.min(rn, Math.min(gn, bn));
-                     
+                rPrima = r / 255;
+                gPrima = g / 255;
+                bPrima = b / 255;
                 
-                //simulacion de HSI to RGB
+                cMax = max(rPrima, gPrima, bPrima);
+                cMin = min(rPrima, gPrima, bPrima);
                 
-                double x = i * (1 - s);		
-                if(h < 2 * pi / 3){
-                    double y = i * (1 + (s * Math.cos(h)) / (Math.cos(pi / 3 - h)));
-                    double z = 3 * i - (x + y);
-                    b = x;
-                    r = y;
-                    g = z;
-                }
-                else if(h < 4 * pi / 3){
-                    double y = i * (1 + (s * Math.cos(h - 2 * pi / 3)) / (Math.cos(pi / 3 - (h  - 2 * pi / 3))));
-                    double z = 3 * i - (x + y);
-                    r = x;
-                    g = y;
-                    b = z;
-                }
-                else{
-                    double y = i * (1 + (s * Math.cos(h - 4 * pi / 3)) / (Math.cos(pi / 3 - (h  - 4 * pi / 3))));
-                    double z = 3 * i - (x + y);
-                    r = z; 
-                    g = x; 
-                    b = y;
+                difference = cMax - cMin;
+                
+                if(difference == 0){
+                    H = 0;
+                }else if(cMax == rPrima){
+                    H = 60 * (((gPrima - bPrima) / difference ) % 6);
+                }else if(cMax == gPrima){
+                    H = 60 * (((bPrima - rPrima) / difference) + 2);
+                }else if(cMax == bPrima){
+                    H = 60 * (((rPrima - gPrima) / difference) + 4);
                 }
                 
+                L = (cMax + cMin) / 2;
                 
-                rFinal = (int)r;
-                gFinal = (int)g;
-                bFinal = (int)b;
+                difference = (int)difference;
                 
-                if(rFinal > 255){
-                    rFinal = 255;
+                if(difference == 0){
+                    S = 0;
+                }else{
+                    S = difference / ( 1 - Math.abs(2*L - 1));  
                 }
                 
-                if(gFinal > 255){
-                    gFinal = 255;
+                if(H <= 0){
+                    H = 0;
+                }
+                else if(H >= 360){
+                    H = 359;
                 }
                 
-                if(bFinal > 255){
-                    bFinal = 255;
+                if(S < 0){
+                    S = 0;
+                }
+                else if(S > 1){
+                    S = 1;
                 }
                 
+                if(L < 0){
+                    L = 0;
+                }
+                else if(L > 1){
+                    L = 1;
+                }
                 
-                newImage.setRGB(j, i, new Color(rFinal,gFinal,bFinal).getRGB());
+                // HSI to RGB
+                /*
+                C = ( 1 - Math.abs(2 * L - 1)) * S;
+                X = C * ( 1 - Math.abs((H / 60)%2 -1) );
+                M = L - C / 2;
+                
+                if(H < 60){
+                    rPrima = C;
+                    gPrima = X;
+                    bPrima = 0;
+                }
+                else if(H < 120){
+                    rPrima = X;
+                    gPrima = C;
+                    bPrima = 0;
+                }
+                else if(H < 180){
+                    rPrima = 0;
+                    gPrima = X;
+                    bPrima = C;
+                }
+                else if(H < 240){
+                    rPrima = 0;
+                    gPrima = X;
+                    bPrima = C;
+                }
+                else if(H < 300){
+                    rPrima = X;
+                    gPrima = 0;
+                    bPrima = C;
+                }
+                else if(H < 360){
+                    rPrima = C;
+                    gPrima = 0;
+                    bPrima = X;
+                }
+                
+                r = (rPrima + M) * 255;
+                g = (gPrima + M) * 255;
+                b = (bPrima + M) * 255;
+                */
+                
+                if(H > 255){
+                    H = 255;
+                }
+                
+                if(S > 255){
+                    S = 255;
+                }
+                
+                if(L > 255){
+                    L = 255;
+                }
+                
+                newImage.setRGB(j, i, new Color((int)H,(int) S,(int) L).getRGB());
+                
             }
         }
         
         return newImage;
     }
     
+    public double max(double a, double b, double c){
+        if( a >= b && a >= c){
+            return a;
+        }
+        else if( b >= c && b >= a){
+            return b;
+        }
+        else if( c >= a && c >= b){
+            return c;
+        }
+        return a;
+    }
+
+    public double min(double a, double b, double c){
+        if( a <= b && a <= c){
+            return a;
+        }
+        else if( b <= c && b <= a){
+            return b;
+        }
+        else if( c <= a && c <= b){
+            return c;
+        }
+        return a;
+    }    
     
 }

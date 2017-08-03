@@ -15,6 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.CMYK;
 import model.HSI;
+import model.LocalBinarization;
 import model.MyImage;
 import model.PseudoColor;
 
@@ -52,7 +53,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();  
         setLocationRelativeTo(null);
         initBufferedImage(path);
-        changePane(new PaneScale());
+        changePane(new PaneBright());
         configurations();
         listeners();
     }
@@ -183,6 +184,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemAdd = new javax.swing.JMenuItem();
         itemSubstract = new javax.swing.JMenuItem();
         itemBinar = new javax.swing.JMenuItem();
+        btnLocalBinarization = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
         menuModo = new javax.swing.JMenu();
@@ -336,6 +338,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemEscalar.setForeground(new java.awt.Color(255, 255, 255));
         itemEscalar.setText("Escalar");
         itemEscalar.setOpaque(true);
+        itemEscalar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEscalarActionPerformed(evt);
+            }
+        });
         menuSubstractImage.add(itemEscalar);
 
         itemBrillo.setBackground(new java.awt.Color(102, 102, 102));
@@ -381,6 +388,17 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menuSubstractImage.add(itemBinar);
+
+        btnLocalBinarization.setBackground(new java.awt.Color(102, 102, 102));
+        btnLocalBinarization.setForeground(new java.awt.Color(255, 255, 255));
+        btnLocalBinarization.setText("Binarizacion Local");
+        btnLocalBinarization.setOpaque(true);
+        btnLocalBinarization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocalBinarizationActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(btnLocalBinarization);
 
         itemPseudoColor.setBackground(new java.awt.Color(102, 102, 102));
         itemPseudoColor.setForeground(new java.awt.Color(255, 255, 255));
@@ -738,12 +756,28 @@ public class frmPrincipal extends javax.swing.JFrame {
             bufferedActualImage = bufferedImage;
             bufferedActualImageCopy = bufferedImage;
             
-            JOptionPane.showMessageDialog(null,"Se aplico la imagen en modo CMYK ");
+            JOptionPane.showMessageDialog(null,"Se aplico la imagen en modo HSI ");
             
         }else{
             JOptionPane.showMessageDialog(null,"Solo es aplicable para imagenes RGB");
         }
     }//GEN-LAST:event_menuItemHSIActionPerformed
+
+    private void itemEscalarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEscalarActionPerformed
+        changePane(new PaneScale());
+    }//GEN-LAST:event_itemEscalarActionPerformed
+
+    private void btnLocalBinarizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalBinarizationActionPerformed
+        if(modeRGB){
+            BufferedImage bufferedImage = new LocalBinarization(frmPrincipal.bufferedActualImage).apply();
+            frmPrincipal.bufferedActualImage = bufferedImage;
+            bufferedActualImageCopy = bufferedImage;
+            lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en RGB");
+        }
+    }//GEN-LAST:event_btnLocalBinarizationActionPerformed
 
     class ListenerKey implements KeyListener{
 
@@ -767,6 +801,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnLocalBinarization;
     private javax.swing.JMenuItem itemAdd;
     private javax.swing.JMenu itemAddImage;
     private javax.swing.JMenuItem itemBinar;
