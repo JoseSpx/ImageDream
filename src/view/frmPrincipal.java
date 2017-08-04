@@ -33,8 +33,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     public static BufferedImage bufferedBeforeImage = null;
     public static BufferedImage bufferedAfterImage = null;
     
-    public static boolean scaleAlgorithmAverage = true;
-    public static boolean scaleAlgorithmLineBefore = false;
+    public static boolean scaleAlgorithmAverage = false;
+    public static boolean scaleAlgorithmLineBefore = true;
     
     public static boolean addImageExtremeLeft = true;
     public static boolean addImageCentered = false;
@@ -53,7 +53,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();  
         setLocationRelativeTo(null);
         initBufferedImage(path);
-        changePane(new PaneBright());
+        changePane(new PaneScale());
         configurations();
         listeners();
     }
@@ -88,7 +88,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void configurations(){
-        radioPromedio.setSelected(true);
+        radioLineaAnterior.setSelected(true);
+        radioPromedio.setSelected(false);
         radioGroupEscalar.add(radioPromedio);
         radioGroupEscalar.add(radioLineaAnterior);
         

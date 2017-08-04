@@ -14,8 +14,8 @@ public class MyImage extends Component
     private double [][]     matrizImg_R;         //matrizImg de la imagen en R
     private double [][]     matrizImg_G;         //matriz de la imagen en G
     private double [][]     matrizImg_B;         //matriz de la imagen en B
-    private int             columnas;            //numero de filas
-    private int             filas;               //numero de
+    private int             nroColumnas;            //numero de filas
+    private int             nroFilas;               //numero de
     private int numberOfchannels;
     
     public MyImage(String nombreImagen){
@@ -33,13 +33,13 @@ public class MyImage extends Component
     
     public void convertirImagenAMatriz()
     {
-        filas = img.getHeight();
-    	columnas = img.getWidth();
+        nroFilas = img.getHeight();
+    	nroColumnas = img.getWidth();
 
-    	matrizImg 	= new double [filas][columnas];
-    	matrizImg_R	= new double [filas][columnas];
-     	matrizImg_G     = new double [filas][columnas];
-    	matrizImg_B	= new double [filas][columnas];
+    	matrizImg 	= new double [nroFilas][nroColumnas];
+    	matrizImg_R	= new double [nroFilas][nroColumnas];
+     	matrizImg_G     = new double [nroFilas][nroColumnas];
+    	matrizImg_B	= new double [nroFilas][nroColumnas];
     	double r;
     	double g;
     	double b;
@@ -47,9 +47,9 @@ public class MyImage extends Component
     	WritableRaster raster=img.getRaster();
     	this.numberOfchannels =raster.getNumBands(); 
 
-    	for (int i=0;i<filas;i++){
+    	for (int i=0;i<nroFilas;i++){
             
-            for(int j=0;j<columnas;j++){
+            for(int j=0;j<nroColumnas;j++){
                 
                 if (this.numberOfchannels == 3){
                     r=raster.getSampleDouble(j,i,0);
@@ -63,9 +63,6 @@ public class MyImage extends Component
                 }
                 if (this.numberOfchannels == 1){
                     matrizImg[i][j]=raster.getSampleDouble(j,i,0);
-                    //matrizImg_R[i][j]=255;
-                    //matrizImg_G[i][j]=255;
-                    //matrizImg_B[i][j]=255;
                 }
             }
         }
@@ -161,10 +158,10 @@ public class MyImage extends Component
         return matrizImg;
     }
     public int getColumnas() {
-        return columnas;
+        return nroColumnas;
     }
     public int getFilas() {
-        return filas;
+        return nroFilas;
     }
     public BufferedImage getImg() {
         return img;
@@ -177,12 +174,6 @@ public class MyImage extends Component
     }
     public double[][] getMatrizImg_R() {
         return matrizImg_R;
-    }
-    public void setColumnas(int columnas) {
-        this.columnas = columnas;
-    }
-    public void setFilas(int filas) {
-        this.filas = filas;
     }
     public void setMatrizImg(double[][] matrizImg) {
         this.matrizImg = matrizImg;

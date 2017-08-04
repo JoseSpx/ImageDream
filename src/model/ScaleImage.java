@@ -3,21 +3,12 @@ package model;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.util.ArrayList;
 import view.frmPrincipal;
 
 public class ScaleImage {
-
-    private final int scaleAlgorithmAverage = 1;
-    private final int scaleAlgorithmLineBefore = 2;
     
     private final int WIDHT = 0;
     private final int HEIGHT = 1;
-    
-    private static double [][] matrizImg;
-    private static double [][] matrizImg_R;         
-    private double [][] matrizImg_G;         
-    private double [][] matrizImg_B;
     
     private int height;
     private int width;
@@ -26,8 +17,8 @@ public class ScaleImage {
     
     public BufferedImage getScaleImage(BufferedImage image,int percentage,int type){
         MyImage myImage = new MyImage(image);
-        this.width = myImage.getColumnas();
-        this.height = myImage.getFilas();
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         int channels = myImage.getNumberOfchannels();
         this.image = image;
         if(channels == 3){
@@ -38,131 +29,191 @@ public class ScaleImage {
     }
     
     public BufferedImage scaleRGB(double [][] matrixR, double [][] matrixG, double [][] matrixB,int percentage, int type){
-        int newPixels;
 
         if( percentage > 198 ){
-            percentage = percentage - 2;
+            percentage = percentage - 1;
         }
-        System.out.println("afueraaa");
-        double [][] R = null;
-        double [][] G = null;
-        double [][] B = null;
+
+        double [][] R;
+        double [][] G;
+        double [][] B;
         
         if(type == WIDHT){
-            if( percentage > 100){System.out.println("entroo");
-                newPixels = getNumberOfNewPixels(width, percentage - 100);
-                int step = width / newPixels;
-                
-                R = new double[height][width + newPixels];
-                G = new double[height][width + newPixels];
-                B = new double[height][width + newPixels];
-                
-                //rellenamos la matriz todo con -1
-                for (int i = 0; i < height; i++) {
-                    for (int j = 0; j < width + newPixels; j++) {
-                        R[i][j] = -1;
-                        G[i][j] = -1;
-                        B[i][j] = -1;
-                    }
-                }
+            if( percentage > 100){
+                int newPixels = getNumberOfNewPixels(width, percentage - 100);
+                int step = Math.round(width / newPixels);
                 
                 if( frmPrincipal.scaleAlgorithmAverage ){System.out.println("Promedio");
-                    //ingresamos lo nuevos pixeles
-                    double before;
-                    double after;
-                    double average;
-                    
-                    for(int i = 0; i < height; i++) {
-
-                    }
-                    
-                    int cont = 0;
-                    int aux;
-                    
-                    for(int i = 0; i < height; i++) {
-                        for (int j = 0; j < width ; j++) {
-                            aux = j + cont;
-                            
-                            if(R[i][aux] != -1){
-                                cont++;
-                            }
-                            else{
-                                R[i][aux] = new Color(image.getRGB(j, i)).getRed();
-                                G[i][aux] = new Color(image.getRGB(j, i)).getGreen();
-                                B[i][aux] = new Color(image.getRGB(j, i)).getBlue();
-                            }
-                        }
-                    }
-                    
                    
-                }else if( frmPrincipal.scaleAlgorithmLineBefore ){System.out.println("Linea anterior");
+                }else if( frmPrincipal.scaleAlgorithmLineBefore ){
                     
-                    int contadorNewPixeles = 0;
                     int contadorWidth = 0;
-                    int contadorHeight = 0;
+                    int i;
+                    int j;
+                    
+                    //hallaremos el tamaño de la imagen escalada
 
-                    for(int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
+                    for ( j = 0; j < width; j++) {
+                        if(j % step == 0 && j!= 0){
+                            contadorWidth++;
+                        }
+                        contadorWidth++;
+                    }
+                    
+                    
+                    R = new double[height][contadorWidth];
+                    G =  new double[height][contadorWidth];
+                    B = new double[height][contadorWidth];
+                    
+                    int x;
+                    contadorWidth = 0;
 
-                            if(j % step == 0 && contadorNewPixeles <= newPixels){
-                                
-                                contadorWidth++;
-                                contadorNewPixeles++;
-                            }
-                            else{
-                                
-                                R[i][contadorWidth] = new Color(image.getRGB(j, i)).getRed();
-                                G[i][contadorWidth] = new Color(image.getRGB(j, i)).getBlue();
-                                B[i][contadorWidth] = new Color(image.getRGB(j, i)).getGreen();
-                            
-                                contadorWidth++;
-                            
+                    for ( j = 0; j < width; j++) {
+                        for(x = 0; x < height ; x ++){
+                            R[x][contadorWidth] = new Color(image.getRGB(j, x)).getRed();
+                            G[x][contadorWidth] = new Color(image.getRGB(j, x)).getGreen();
+                            B[x][contadorWidth] = new Color(image.getRGB(j, x)).getBlue();
+                        }
+
+                        if(j % step == 0 && j!= 0){
+                            contadorWidth++;
+                            for(x = 0; x < height ; x ++){
+                                R[x][contadorWidth] = new Color(image.getRGB(j, x)).getRed();
+                                G[x][contadorWidth] = new Color(image.getRGB(j, x)).getGreen();
+                                B[x][contadorWidth] = new Color(image.getRGB(j, x)).getBlue();
                             }
                         }
+
+                        contadorWidth++;
                     }
+                    
+                    return convertirMatrizRGBAImagen(R, G, B);
                     
                 }
                 
             }
-            
-            
+            else if(percentage < 100) {
+                int deletePixels = getNumberOfNewPixels(width, 100 -percentage);
+                int step = Math.round(width / deletePixels);
+                int contadorWidth = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for (j = 0; j < width; j++) {
+                    if(j % step != 0){
+                        contadorWidth++;
+                    }
+                }
+
+                R = new double[height][contadorWidth];
+                G = new double[height][contadorWidth];
+                B = new double[height][contadorWidth];
+
+                int x;
+                contadorWidth = 0;
+                for ( j = 0; j < width; j++) {
+                    if(j % step != 0){
+                        for(x = 0; x < height ; x ++){
+                            R[x][contadorWidth] = new Color(image.getRGB(j, x)).getRed();
+                            G[x][contadorWidth] = new Color(image.getRGB(j, x)).getGreen();
+                            B[x][contadorWidth] = new Color(image.getRGB(j, x)).getBlue();
+                        }
+                        contadorWidth++;
+                    }
+                }
+                    
+                return convertirMatrizRGBAImagen(R, G, B);
+            }
         }else if(type == HEIGHT){
             if( percentage > 100){
-                //newPixels = getNumberOfNewPixels(newPixels, percentage);
-            }else if( percentage < 100){
+                int newPixels = getNumberOfNewPixels(height, percentage - 100);
+                int step = Math.round(height / newPixels);
+                int contadorHeight = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+                for ( j = 0; j < height; j++) {
+                    if(j % step == 0 && j!= 0){
+                        contadorHeight++;
+                    }
+                    contadorHeight++;
+                }
                 
+                
+                R = new double[contadorHeight][width];
+                G = new double[contadorHeight][width];
+                B = new double[contadorHeight][width];
+
+                int x;
+                contadorHeight = 0;
+                
+                for ( j = 0; j < height; j++) {
+                    for(x = 0; x < width ; x ++){
+                        R[contadorHeight][x] = new Color(image.getRGB(x, j)).getRed();
+                        G[contadorHeight][x] = new Color(image.getRGB(x, j)).getGreen();
+                        B[contadorHeight][x] = new Color(image.getRGB(x, j)).getBlue();
+                    }
+
+                    if(j % step == 0 && j!= 0){
+                        contadorHeight++;
+                        for(x = 0; x < width ; x ++){
+                            R[contadorHeight][x] = new Color(image.getRGB(x, j)).getRed();
+                            G[contadorHeight][x] = new Color(image.getRGB(x, j)).getGreen();
+                            B[contadorHeight][x] = new Color(image.getRGB(x, j)).getBlue();
+                        }
+                    }
+
+                    contadorHeight++;
+                }
+                
+                return convertirMatrizRGBAImagen(R, G, B);
+
+            }else if( percentage < 100){
+                int deletePixels = getNumberOfNewPixels(height, 100 - percentage);
+                int step = Math.round(height / deletePixels);
+                int contadorHeight = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for (j = 0; j < height; j++) {
+                    if(j % step != 0){
+                        contadorHeight++;
+                    }
+                }
+
+                R = new double[contadorHeight][width];
+                G = new double[contadorHeight][width];
+                B = new double[contadorHeight][width];
+
+                int x;
+                contadorHeight = 0;
+                for ( j = 0; j < height; j++) {
+                    if(j % step != 0){
+                        for(x = 0; x < width ; x ++){
+                            R[contadorHeight][x] = new Color(image.getRGB(x, j)).getRed();
+                            G[contadorHeight][x] = new Color(image.getRGB(x, j)).getGreen();
+                            B[contadorHeight][x] = new Color(image.getRGB(x, j)).getBlue();
+                        }
+                        contadorHeight++;
+                    }
+                }
+                    
+                return convertirMatrizRGBAImagen(R, G, B);
             }
         }
-        
-        
-        
-        return convertirMatrizRGBAImagen(R, G, B);
+        return null;
     }
     
     
     public BufferedImage scaleGray(double [][] matrix){
-        
-        
-        
-        
         return null;
     }
     
     private int getNumberOfNewPixels(int pixels, int percetange){
         return ( percetange * pixels ) / 100;
     } 
-    
-    private ArrayList<Integer> getArrayOfIndexesOfNewPixels(int pixelsOfImage, int newPixels){
-        int step = pixelsOfImage / newPixels;
-        ArrayList<Integer> listOfIndexes = new ArrayList<>();
-        listOfIndexes.add(1);
-        int j = 1;
-        for(int i = 1 ; i < newPixels ; i++){
-             j =  j + step;
-            listOfIndexes.add(j);
-        }System.out.println("Taaño pixeles agregados : " + listOfIndexes.size());
-        return listOfIndexes;
-    }
     
     public BufferedImage convertirMatrizRGBAImagen(double [][]matriz_R, double [][]matriz_G, double [][]matriz_B){
         
@@ -177,6 +228,9 @@ public class ScaleImage {
             }
         }
 
+        System.out.println("Matriz Escalada ALTO: " + matriz_R.length);
+        System.out.println("Matriz Escalada ANCHO: " + matriz_R[0].length);
+        
         bi.setData(wr);
         return bi;
     }

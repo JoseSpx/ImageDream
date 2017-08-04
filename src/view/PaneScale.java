@@ -26,7 +26,8 @@ public class PaneScale extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         sliderHeight = new javax.swing.JSlider();
         SliderWidth = new javax.swing.JSlider();
-        btnReset = new javax.swing.JButton();
+        btnChangeHeight = new javax.swing.JButton();
+        btnChangeWidth = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(350, 420));
 
@@ -56,11 +57,6 @@ public class PaneScale extends javax.swing.JPanel {
         sliderHeight.setToolTipText("");
         sliderHeight.setValue(100);
         sliderHeight.setFocusable(false);
-        sliderHeight.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                sliderHeightStateChanged(evt);
-            }
-        });
 
         SliderWidth.setBackground(new java.awt.Color(38, 50, 56));
         SliderWidth.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,21 +68,28 @@ public class PaneScale extends javax.swing.JPanel {
         SliderWidth.setToolTipText("");
         SliderWidth.setValue(100);
         SliderWidth.setFocusable(false);
-        SliderWidth.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                SliderWidthStateChanged(evt);
+
+        btnChangeHeight.setBackground(new java.awt.Color(207, 216, 220));
+        btnChangeHeight.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnChangeHeight.setForeground(new java.awt.Color(84, 110, 122));
+        btnChangeHeight.setText("APLICAR");
+        btnChangeHeight.setFocusPainted(false);
+        btnChangeHeight.setFocusable(false);
+        btnChangeHeight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeHeightActionPerformed(evt);
             }
         });
 
-        btnReset.setBackground(new java.awt.Color(207, 216, 220));
-        btnReset.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnReset.setForeground(new java.awt.Color(84, 110, 122));
-        btnReset.setText("RESETEAR");
-        btnReset.setFocusPainted(false);
-        btnReset.setFocusable(false);
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
+        btnChangeWidth.setBackground(new java.awt.Color(207, 216, 220));
+        btnChangeWidth.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnChangeWidth.setForeground(new java.awt.Color(84, 110, 122));
+        btnChangeWidth.setText("APLICAR");
+        btnChangeWidth.setFocusPainted(false);
+        btnChangeWidth.setFocusable(false);
+        btnChangeWidth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+                btnChangeWidthActionPerformed(evt);
             }
         });
 
@@ -105,7 +108,15 @@ public class PaneScale extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(SliderWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))))
-            .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(btnChangeHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(btnChangeWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,12 +124,15 @@ public class PaneScale extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(sliderHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
+                .addComponent(btnChangeHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(18, 18, 18)
                 .addComponent(SliderWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(btnChangeWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -133,45 +147,41 @@ public class PaneScale extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        this.sliderHeight.setValue(100);
-        this.SliderWidth.setValue(100);
-        frmPrincipal.lblImageActual.setIcon(new ImageIcon(frmPrincipal.bufferedOriginalImage));
-    }//GEN-LAST:event_btnResetActionPerformed
+    private void btnChangeHeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeHeightActionPerformed
+        scaleImageHeight();
+    }//GEN-LAST:event_btnChangeHeightActionPerformed
 
-    public void scaleImage(){
-        this.heightPercentage = this.sliderHeight.getValue();
+    public void scaleImageWidth(){
         this.widthPercentage = this.SliderWidth.getValue();
         this.image = frmPrincipal.bufferedOriginalImage;
-       
-        if(this.heightPercentage > 100){
-            image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
-        }else if(this.heightPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
+        if(widthPercentage == 100){
+            widthPercentage = 101;
         }
-
-        if(this.widthPercentage > 100){System.out.println("widht + 100");
-            image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
-        }else if(this.widthPercentage < 100){
-            image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
-        }
+        image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
         frmPrincipal.bufferedActualImage = image;
     }
     
+    public void scaleImageHeight(){
+        this.heightPercentage = this.sliderHeight.getValue();
+        this.image = frmPrincipal.bufferedOriginalImage;
+        if(heightPercentage == 100){
+            heightPercentage++;
+        }
+        image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
+        frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
+        frmPrincipal.bufferedActualImage = image;System.out.println("jajaja");
+    }
     
-    private void sliderHeightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderHeightStateChanged
-        scaleImage();
-    }//GEN-LAST:event_sliderHeightStateChanged
-
-    private void SliderWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderWidthStateChanged
-        scaleImage();
-    }//GEN-LAST:event_SliderWidthStateChanged
+    private void btnChangeWidthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeWidthActionPerformed
+        scaleImageWidth();
+    }//GEN-LAST:event_btnChangeWidthActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider SliderWidth;
-    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnChangeHeight;
+    private javax.swing.JButton btnChangeWidth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
