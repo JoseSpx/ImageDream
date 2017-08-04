@@ -24,7 +24,7 @@ public class ScaleImage {
         if(channels == 3){
             return scaleRGB(myImage.getMatrizImg_R(),myImage.getMatrizImg_G(),myImage.getMatrizImg_B(), percentage, type);
         }else{
-            return scaleGray(myImage.getMatrizImg());
+            return scaleGray(myImage.getMatrizImg(),percentage,type);
         }
     }
     
@@ -207,7 +207,158 @@ public class ScaleImage {
     }
     
     
-    public BufferedImage scaleGray(double [][] matrix){
+    public BufferedImage scaleGray(double [][] matrix, int percentage, int type){
+        if(type == WIDHT){
+            if(percentage > 100){
+                int newPixels = getNumberOfNewPixels(width, percentage - 100);
+                int step = Math.round(width / newPixels);
+                
+                int contadorWidth = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for ( j = 0; j < width; j++) {
+                    if(j % step == 0 && j!= 0){
+                        contadorWidth++;
+                    }
+                    contadorWidth++;
+                }
+
+                double [][] G;
+
+                G =  new double[height][contadorWidth];
+
+                int x;
+                contadorWidth = 0;
+
+                WritableRaster raster = image.getRaster();
+                
+                for ( j = 0; j < width; j++) {
+                    for(x = 0; x < height ; x ++){
+                        G[x][contadorWidth] = raster.getSampleDouble(j, x, 0);
+                    }
+
+                    if(j % step == 0 && j!= 0){
+                        contadorWidth++;
+                        for(x = 0; x < height ; x ++){
+                            G[x][contadorWidth] = raster.getSampleDouble(j, x, 0);
+                        }
+                    }
+
+                    contadorWidth++;
+                }
+
+                return convertirMatrizGrayAImagen(G);
+                
+            }
+            else if(percentage < 100){
+                int deletePixels = getNumberOfNewPixels(width, 100 - percentage);
+                int step = Math.round(width / deletePixels);
+                int contadorWidth = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for (j = 0; j < width; j++) {
+                    if(j % step != 0){
+                        contadorWidth++;
+                    }
+                }
+                
+                double [][] G = new double[height][contadorWidth];
+                WritableRaster raster = image.getRaster();
+                
+                int x;
+                contadorWidth = 0;
+                for ( j = 0; j < width; j++) {
+                    if(j % step != 0){
+                        for(x = 0; x < height ; x ++){
+                            G[x][contadorWidth] = raster.getSampleDouble(j, x, 0);
+                        }
+                        contadorWidth++;
+                    }
+                }
+                    
+                return convertirMatrizGrayAImagen(G);
+            }
+
+        }
+        else if(type == HEIGHT){
+            if(percentage > 100){
+                int newPixels = getNumberOfNewPixels(height, percentage - 100);
+                int step = Math.round(height / newPixels);
+                
+                int contadorHeight = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for ( j = 0; j < height; j++) {
+                    if(j % step == 0 && j!= 0){
+                        contadorHeight++;
+                    }
+                    contadorHeight++;
+                }
+
+                double [][] G;
+
+                G =  new double[contadorHeight][width];
+
+                int x;
+                contadorHeight = 0;
+
+                WritableRaster raster = image.getRaster();
+                
+                for ( j = 0; j < height; j++) {
+                    for(x = 0; x < width ; x ++){
+                        G[contadorHeight][x] = raster.getSampleDouble(x, j, 0);
+                    }
+
+                    if(j % step == 0 && j!= 0){
+                        contadorHeight++;
+                        for(x = 0; x < width ; x ++){
+                            G[contadorHeight][x] = raster.getSampleDouble(x, j, 0);
+                        }
+                    }
+
+                    contadorHeight++;
+                }
+
+                return convertirMatrizGrayAImagen(G);
+            }
+            else{
+                int deletePixels = getNumberOfNewPixels(height, 100 - percentage);
+                int step = Math.round(height / deletePixels);
+                int contadorHeight = 0;
+                int j;
+
+                //hallaremos el tamaño de la imagen escalada
+
+                for (j = 0; j < height; j++) {
+                    if(j % step != 0){
+                        contadorHeight++;
+                    }
+                }
+                
+                double [][] G = new double[contadorHeight][width];
+                WritableRaster raster = image.getRaster();
+                
+                int x;
+                contadorHeight = 0;
+                for ( j = 0; j < height; j++) {
+                    if(j % step != 0){
+                        for(x = 0; x < width ; x ++){
+                            G[contadorHeight][x] = raster.getSampleDouble(x, j, 0);
+                        }
+                        contadorHeight++;
+                    }
+                }
+                    
+                return convertirMatrizGrayAImagen(G);
+            }
+        }
+        
         return null;
     }
     
@@ -227,12 +378,28 @@ public class ScaleImage {
                 wr.setSample(j,i,2,matriz_B[i][j]);
             }
         }
-
-        System.out.println("Matriz Escalada ALTO: " + matriz_R.length);
-        System.out.println("Matriz Escalada ANCHO: " + matriz_R[0].length);
         
         bi.setData(wr);
         return bi;
+    }
+    
+    public BufferedImage convertirMatrizGrayAImagen(double [][] matriz){
+        int alto = matriz.length;
+        int ancho = matriz[0].length;
+
+        BufferedImage image = new BufferedImage(ancho,alto,BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster wr = image.getRaster();
+
+        for (int i=0;i<alto;i++)
+        {
+            for(int j=0;j<ancho;j++)
+            {
+                wr.setSample(j,i,0,matriz[i][j]);
+            }
+        }
+        image.setData(wr);
+        
+        return image;
     }
     
 }

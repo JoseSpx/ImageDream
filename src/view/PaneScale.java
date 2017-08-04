@@ -157,6 +157,7 @@ public class PaneScale extends javax.swing.JPanel {
         if(widthPercentage == 100){
             widthPercentage = 101;
         }
+        
         image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
         frmPrincipal.bufferedActualImage = image;
@@ -170,7 +171,7 @@ public class PaneScale extends javax.swing.JPanel {
         }
         image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
-        frmPrincipal.bufferedActualImage = image;System.out.println("jajaja");
+        frmPrincipal.bufferedActualImage = image;
     }
     
     private void btnChangeWidthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeWidthActionPerformed
