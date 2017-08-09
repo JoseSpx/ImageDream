@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.CMYK;
+import model.Contrast;
 import model.HSI;
 import model.LocalBinarization;
 import model.MyImage;
@@ -187,6 +188,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinar = new javax.swing.JMenuItem();
         btnLocalBinarization = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
+        itemContrste = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
         menuModo = new javax.swing.JMenu();
         itemMenuCMYK = new javax.swing.JMenuItem();
@@ -411,6 +413,17 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menuSubstractImage.add(itemPseudoColor);
+
+        itemContrste.setBackground(new java.awt.Color(102, 102, 102));
+        itemContrste.setForeground(new java.awt.Color(255, 255, 255));
+        itemContrste.setText("Contraste");
+        itemContrste.setOpaque(true);
+        itemContrste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemContrsteActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(itemContrste);
 
         menuReset.setBackground(new java.awt.Color(102, 102, 102));
         menuReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -780,6 +793,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLocalBinarizationActionPerformed
 
+    private void itemContrsteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContrsteActionPerformed
+        BufferedImage bi = new Contrast(bufferedActualImage).apply();
+        lblImageActual.setIcon(new ImageIcon(bi));
+    }//GEN-LAST:event_itemContrsteActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -807,6 +825,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu itemAddImage;
     private javax.swing.JMenuItem itemBinar;
     private javax.swing.JMenuItem itemBrillo;
+    private javax.swing.JMenuItem itemContrste;
     private javax.swing.JMenuItem itemEscalar;
     private javax.swing.JMenuItem itemFileClose;
     private javax.swing.JMenuItem itemFileOpen;
