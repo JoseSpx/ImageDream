@@ -192,6 +192,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinarizationByHistogram = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         itemContrste = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        itemFilterAverage = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
         menuModo = new javax.swing.JMenu();
         itemMenuCMYK = new javax.swing.JMenuItem();
@@ -343,6 +345,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemEscalar.setBackground(new java.awt.Color(102, 102, 102));
         itemEscalar.setForeground(new java.awt.Color(255, 255, 255));
         itemEscalar.setText("Escalar");
+        itemEscalar.setBorder(null);
         itemEscalar.setOpaque(true);
         itemEscalar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,6 +357,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBrillo.setBackground(new java.awt.Color(102, 102, 102));
         itemBrillo.setForeground(new java.awt.Color(255, 255, 255));
         itemBrillo.setText("Brillo");
+        itemBrillo.setBorder(null);
         itemBrillo.setOpaque(true);
         itemBrillo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +369,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemAdd.setBackground(new java.awt.Color(102, 102, 102));
         itemAdd.setForeground(new java.awt.Color(255, 255, 255));
         itemAdd.setText("Sumar Imagen");
+        itemAdd.setBorder(null);
         itemAdd.setOpaque(true);
         itemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,6 +381,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemSubstract.setBackground(new java.awt.Color(102, 102, 102));
         itemSubstract.setForeground(new java.awt.Color(255, 255, 255));
         itemSubstract.setText("Restar Imagen");
+        itemSubstract.setBorder(null);
         itemSubstract.setOpaque(true);
         itemSubstract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,6 +393,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinar.setBackground(new java.awt.Color(102, 102, 102));
         itemBinar.setForeground(new java.awt.Color(255, 255, 255));
         itemBinar.setText("Binarizacion Global");
+        itemBinar.setBorder(null);
         itemBinar.setOpaque(true);
         itemBinar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,6 +405,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnLocalBinarization.setBackground(new java.awt.Color(102, 102, 102));
         btnLocalBinarization.setForeground(new java.awt.Color(255, 255, 255));
         btnLocalBinarization.setText("Binarizacion Local");
+        btnLocalBinarization.setBorder(null);
         btnLocalBinarization.setOpaque(true);
         btnLocalBinarization.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,6 +417,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuChannelBinarization.setBackground(new java.awt.Color(102, 102, 102));
         menuChannelBinarization.setForeground(new java.awt.Color(255, 255, 255));
         menuChannelBinarization.setText("Binarizacion por Canales");
+        menuChannelBinarization.setBorder(null);
         menuChannelBinarization.setOpaque(true);
         menuChannelBinarization.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +429,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinarizationByHistogram.setBackground(new java.awt.Color(102, 102, 102));
         itemBinarizationByHistogram.setForeground(new java.awt.Color(255, 255, 255));
         itemBinarizationByHistogram.setText("Binarizacion por Histograma");
+        itemBinarizationByHistogram.setBorder(null);
         itemBinarizationByHistogram.setOpaque(true);
         itemBinarizationByHistogram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,6 +441,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemPseudoColor.setBackground(new java.awt.Color(102, 102, 102));
         itemPseudoColor.setForeground(new java.awt.Color(255, 255, 255));
         itemPseudoColor.setText("PseudoColor");
+        itemPseudoColor.setBorder(null);
         itemPseudoColor.setOpaque(true);
         itemPseudoColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,6 +453,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemContrste.setBackground(new java.awt.Color(102, 102, 102));
         itemContrste.setForeground(new java.awt.Color(255, 255, 255));
         itemContrste.setText("Contraste");
+        itemContrste.setBorder(null);
         itemContrste.setOpaque(true);
         itemContrste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,9 +462,30 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         menuSubstractImage.add(itemContrste);
 
+        jMenu4.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu4.setBorder(null);
+        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu4.setText("Filtro");
+        jMenu4.setOpaque(true);
+
+        itemFilterAverage.setBackground(new java.awt.Color(102, 102, 102));
+        itemFilterAverage.setForeground(new java.awt.Color(255, 255, 255));
+        itemFilterAverage.setText("Promedio");
+        itemFilterAverage.setBorder(null);
+        itemFilterAverage.setOpaque(true);
+        itemFilterAverage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFilterAverageActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemFilterAverage);
+
+        menuSubstractImage.add(jMenu4);
+
         menuReset.setBackground(new java.awt.Color(102, 102, 102));
         menuReset.setForeground(new java.awt.Color(255, 255, 255));
         menuReset.setText("Reset");
+        menuReset.setBorder(null);
         menuReset.setOpaque(true);
         menuReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,6 +505,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemMenuCMYK.setBackground(new java.awt.Color(102, 102, 102));
         itemMenuCMYK.setForeground(new java.awt.Color(255, 255, 255));
         itemMenuCMYK.setText("CMYK");
+        itemMenuCMYK.setBorder(null);
         itemMenuCMYK.setOpaque(true);
         itemMenuCMYK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,6 +517,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuItemHSI.setBackground(new java.awt.Color(102, 102, 102));
         menuItemHSI.setForeground(new java.awt.Color(255, 255, 255));
         menuItemHSI.setText("HSI");
+        menuItemHSI.setBorder(null);
         menuItemHSI.setOpaque(true);
         menuItemHSI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,6 +536,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuConfiguracion.setOpaque(true);
 
         jMenu1.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu1.setBorder(null);
         jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("Escalar");
         jMenu1.setOpaque(true);
@@ -532,6 +568,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuConfiguracion.add(jMenu1);
 
         itemAddImage.setBackground(new java.awt.Color(102, 102, 102));
+        itemAddImage.setBorder(null);
         itemAddImage.setForeground(new java.awt.Color(255, 255, 255));
         itemAddImage.setText("Sumar Imagen Desde");
         itemAddImage.setOpaque(true);
@@ -561,6 +598,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuConfiguracion.add(itemAddImage);
 
         jMenu3.setBackground(new java.awt.Color(102, 102, 102));
+        jMenu3.setBorder(null);
         jMenu3.setForeground(new java.awt.Color(255, 255, 255));
         jMenu3.setText("Restar Imagen Desde");
         jMenu3.setOpaque(true);
@@ -600,6 +638,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem1.setBackground(new java.awt.Color(102, 102, 102));
         jMenuItem1.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem1.setText("Atras");
+        jMenuItem1.setBorder(null);
         jMenuItem1.setOpaque(true);
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -828,6 +867,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblImageActual.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_itemBinarizationByHistogramActionPerformed
 
+    private void itemFilterAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFilterAverageActionPerformed
+        changePane(new PaneFilterAverage());
+    }//GEN-LAST:event_itemFilterAverageActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -861,6 +904,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFileClose;
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
+    private javax.swing.JMenuItem itemFilterAverage;
     private javax.swing.JMenuItem itemMenuCMYK;
     private javax.swing.JMenuItem itemPseudoColor;
     private javax.swing.JMenuItem itemSubstract;
@@ -868,6 +912,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
