@@ -11,13 +11,7 @@ public class LocalBinarization {
         this.image = image;
     }
     
-    public BufferedImage apply(){
-        
-        int umbral1 = 100;
-        int umbral2 = 110;
-        int umbral3 = 130;
-        int umbral4 = 140;
-        
+    public BufferedImage apply(int umbral1, int umbral2, int umbral3, int umbral4){
         
         int alto = image.getHeight();
         int ancho = image.getWidth();

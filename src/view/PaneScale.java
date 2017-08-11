@@ -3,6 +3,7 @@ package view;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import model.ScaleImage;
+import static view.frmPrincipal.bufferedActualImageCopy;
 
 public class PaneScale extends javax.swing.JPanel {
 
@@ -161,6 +162,7 @@ public class PaneScale extends javax.swing.JPanel {
         image = new ScaleImage().getScaleImage(image, widthPercentage, WIDTH_IMAGE);
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
         frmPrincipal.bufferedActualImage = image;
+        bufferedActualImageCopy = image;
     }
     
     public void scaleImageHeight(){
@@ -172,6 +174,7 @@ public class PaneScale extends javax.swing.JPanel {
         image = new ScaleImage().getScaleImage(image, heightPercentage, HEIGTH_IMAGE);
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(image));
         frmPrincipal.bufferedActualImage = image;
+        bufferedActualImageCopy = image;
     }
     
     private void btnChangeWidthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeWidthActionPerformed

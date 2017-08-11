@@ -4,6 +4,7 @@ package view;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import model.Bright;
+import static view.frmPrincipal.bufferedActualImageCopy;
 
 public class PaneBright extends javax.swing.JPanel {
 
@@ -21,7 +22,7 @@ public class PaneBright extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(350, 420));
 
-        jPanel1.setBackground(new java.awt.Color(30, 50, 56));
+        jPanel1.setBackground(new java.awt.Color(38, 50, 56));
 
         jLabel2.setBackground(new java.awt.Color(84, 110, 122));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -81,6 +82,7 @@ public class PaneBright extends javax.swing.JPanel {
         BufferedImage bufferedImage = new Bright(this.sliderBright.getValue()).getNewImage();
         frmPrincipal.lblImageActual.setIcon(new ImageIcon(bufferedImage));
         frmPrincipal.bufferedActualImage = bufferedImage;
+        bufferedActualImageCopy = bufferedImage;
     }//GEN-LAST:event_sliderBrightStateChanged
 
 

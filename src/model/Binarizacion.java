@@ -28,19 +28,19 @@ public class Binarizacion {
                 green = c.getGreen();
                 blue = c.getBlue();
                 
-                if(red > umbral){
+                if(red >= umbral){
                     red = 0;
                 }else{
                     red = 255;
                 }
                 
-                if(green > umbral){
+                if(green >= umbral){
                     green = 0;
                 }else{
                     green = 255;
                 }
                 
-                if(blue > umbral){
+                if(blue >= umbral){
                     blue = 0;
                 }else{
                     blue = 255;

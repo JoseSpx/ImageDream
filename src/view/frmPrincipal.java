@@ -588,6 +588,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem1.setForeground(new java.awt.Color(255, 255, 255));
         jMenuItem1.setText("Atras");
         jMenuItem1.setOpaque(true);
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         menuBarPrincipal.add(jMenu2);
@@ -711,16 +716,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSubstractActionPerformed
 
     private void itemBinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarActionPerformed
-        if(modeRGB){
-            BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply(130);
-            frmPrincipal.bufferedActualImage = bufferedImage;
-            bufferedActualImageCopy = bufferedImage;
-            lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en RGB");
-        }
-            
+        changePane(new PaneGlobalBinarization());
     }//GEN-LAST:event_itemBinarActionPerformed
 
     private void itemPseudoColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPseudoColorActionPerformed
@@ -794,15 +790,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemEscalarActionPerformed
 
     private void btnLocalBinarizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalBinarizationActionPerformed
-        if(modeRGB){
-            BufferedImage bufferedImage = new LocalBinarization(frmPrincipal.bufferedActualImage).apply();
-            frmPrincipal.bufferedActualImage = bufferedImage;
-            bufferedActualImageCopy = bufferedImage;
-            lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Solo es aplicable a imagenes en RGB");
-        }
+        changePane(new PaneLocalBinarization());
     }//GEN-LAST:event_btnLocalBinarizationActionPerformed
 
     private void itemContrsteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContrsteActionPerformed
@@ -813,6 +801,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void menuChannelBinarizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChannelBinarizationActionPerformed
         changePane(new PaneChannelBinarization());
     }//GEN-LAST:event_menuChannelBinarizationActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmPrincipal.bufferedActualImage = bufferedActualImageCopy;
+        lblImageActual.setIcon(new ImageIcon(bufferedActualImage));
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     class ListenerKey implements KeyListener{
 

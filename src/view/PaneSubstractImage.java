@@ -68,7 +68,7 @@ public class PaneSubstractImage extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(350, 420));
 
-        jPanel1.setBackground(new java.awt.Color(30, 50, 56));
+        jPanel1.setBackground(new java.awt.Color(38, 50, 56));
 
         title.setBackground(new java.awt.Color(84, 110, 122));
         title.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -89,9 +89,9 @@ public class PaneSubstractImage extends javax.swing.JPanel {
             }
         });
 
-        paneContainerImageAdded.setBackground(new java.awt.Color(30, 50, 56));
+        paneContainerImageAdded.setBackground(new java.awt.Color(38, 50, 56));
 
-        lblImageToSubstract.setBackground(new java.awt.Color(30, 50, 56));
+        lblImageToSubstract.setBackground(new java.awt.Color(38, 50, 56));
         lblImageToSubstract.setOpaque(true);
 
         javax.swing.GroupLayout paneContainerImageAddedLayout = new javax.swing.GroupLayout(paneContainerImageAdded);
