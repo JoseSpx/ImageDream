@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
+import model.BinarizationByHistogram;
 import model.CMYK;
 import model.Contrast;
 import model.HSI;
@@ -188,6 +189,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinar = new javax.swing.JMenuItem();
         btnLocalBinarization = new javax.swing.JMenuItem();
         menuChannelBinarization = new javax.swing.JMenuItem();
+        itemBinarizationByHistogram = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         itemContrste = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
@@ -414,6 +416,17 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menuSubstractImage.add(menuChannelBinarization);
+
+        itemBinarizationByHistogram.setBackground(new java.awt.Color(102, 102, 102));
+        itemBinarizationByHistogram.setForeground(new java.awt.Color(255, 255, 255));
+        itemBinarizationByHistogram.setText("Binarizacion por Histograma");
+        itemBinarizationByHistogram.setOpaque(true);
+        itemBinarizationByHistogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemBinarizationByHistogramActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(itemBinarizationByHistogram);
 
         itemPseudoColor.setBackground(new java.awt.Color(102, 102, 102));
         itemPseudoColor.setForeground(new java.awt.Color(255, 255, 255));
@@ -807,6 +820,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblImageActual.setIcon(new ImageIcon(bufferedActualImage));
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void itemBinarizationByHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarizationByHistogramActionPerformed
+        changePane(new PaneEmpty());
+        BufferedImage image = new BinarizationByHistogram(bufferedActualImage).apply();
+        bufferedActualImageCopy = bufferedActualImage;
+        bufferedActualImage = image;
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_itemBinarizationByHistogramActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -833,6 +854,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemAdd;
     private javax.swing.JMenu itemAddImage;
     private javax.swing.JMenuItem itemBinar;
+    private javax.swing.JMenuItem itemBinarizationByHistogram;
     private javax.swing.JMenuItem itemBrillo;
     private javax.swing.JMenuItem itemContrste;
     private javax.swing.JMenuItem itemEscalar;

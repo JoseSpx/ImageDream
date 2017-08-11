@@ -5,16 +5,6 @@ import java.awt.image.BufferedImage;
  
 public class Histograma {
      
-    /**
-     * Calculamos la media de una variable Color
-     * @param color Color del cual se quiere obtener la media
-     * @return entero con el valor de la media
-     */
-    private int calcularMedia(Color color){
-        int mediaColor;
-        mediaColor=(int)((color.getRed()+color.getGreen()+color.getBlue())/3);
-        return mediaColor;
-    }
      
     /**
      * Devuelve el histograma de la imagen.
