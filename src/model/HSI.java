@@ -38,120 +38,78 @@ public class HSI {
             for (int j = 0; j < width; j++) {
                 
                 color = new Color(image.getRGB(j, i));
-                r = color.getRed();
-                g = color.getGreen();
-                b = color.getBlue();
+                color = convertRGBtoHSL(color);
                 
-                rPrima = r / 255;
-                gPrima = g / 255;
-                bPrima = b / 255;
-                
-                cMax = max(rPrima, gPrima, bPrima);
-                cMin = min(rPrima, gPrima, bPrima);
-                
-                difference = cMax - cMin;
-                
-                if(difference == 0){
-                    H = 0;
-                }else if(cMax == rPrima){
-                    H = 60 * (((gPrima - bPrima) / difference ) % 6);
-                }else if(cMax == gPrima){
-                    H = 60 * (((bPrima - rPrima) / difference) + 2);
-                }else if(cMax == bPrima){
-                    H = 60 * (((rPrima - gPrima) / difference) + 4);
-                }
-                
-                L = (cMax + cMin) / 2;
-                
-                difference = (int)difference;
-                
-                if(difference == 0){
-                    S = 0;
-                }else{
-                    S = difference / ( 1 - Math.abs(2*L - 1));  
-                }
-                
-                if(H <= 0){
-                    H = 0;
-                }
-                else if(H >= 360){
-                    H = 359;
-                }
-                
-                if(S < 0){
-                    S = 0;
-                }
-                else if(S > 1){
-                    S = 1;
-                }
-                
-                if(L < 0){
-                    L = 0;
-                }
-                else if(L > 1){
-                    L = 1;
-                }
-                
-                // HSI to RGB
-                /*
-                C = ( 1 - Math.abs(2 * L - 1)) * S;
-                X = C * ( 1 - Math.abs((H / 60)%2 -1) );
-                M = L - C / 2;
-                
-                if(H < 60){
-                    rPrima = C;
-                    gPrima = X;
-                    bPrima = 0;
-                }
-                else if(H < 120){
-                    rPrima = X;
-                    gPrima = C;
-                    bPrima = 0;
-                }
-                else if(H < 180){
-                    rPrima = 0;
-                    gPrima = X;
-                    bPrima = C;
-                }
-                else if(H < 240){
-                    rPrima = 0;
-                    gPrima = X;
-                    bPrima = C;
-                }
-                else if(H < 300){
-                    rPrima = X;
-                    gPrima = 0;
-                    bPrima = C;
-                }
-                else if(H < 360){
-                    rPrima = C;
-                    gPrima = 0;
-                    bPrima = X;
-                }
-                
-                r = (rPrima + M) * 255;
-                g = (gPrima + M) * 255;
-                b = (bPrima + M) * 255;
-                */
-                
-                if(H > 255){
-                    H = 255;
-                }
-                
-                if(S > 255){
-                    S = 255;
-                }
-                
-                if(L > 255){
-                    L = 255;
-                }
-                
-                newImage.setRGB(j, i, new Color((int)H,(int) S,(int) L).getRGB());
+                newImage.setRGB(j, i,color.getRGB());
                 
             }
         }
         
         return newImage;
+    }
+    
+    public static Color convertRGBtoHSL(Color colorRGB){
+        
+        float r, g, b, R, G, B, Cmax = 0, Cmin = 0, delta, S, L, H = 0;
+        //int H = 0;
+        char channelMax = 0, channelMin;
+        float[] results = new float[3];
+        
+        r = colorRGB.getRed();
+        g = colorRGB.getGreen();
+        b = colorRGB.getBlue();
+        R = r/255;
+        G = g/255;
+        B = b/255;
+        
+        if(R>=G && R>=B){
+            channelMax = 'R';
+            Cmax = R;
+        }else if(G>=R && G>=B){
+            channelMax = 'G';
+            Cmax = G;
+        }else if(B>=R && B>=G){
+            channelMax = 'B';
+            Cmax = B;
+        }
+        
+        if(R<=G && R<=B){
+            channelMin = 'R';
+            Cmin = R;
+        }else if(G<=R && G<=B){
+            channelMin = 'G';
+            Cmin = G;
+        }else if(B<=R && B<=G){
+            channelMin = 'B';
+            Cmin = B;
+        }
+        
+        delta = Cmax - Cmin;
+        
+        //calculate Hue
+        if(delta == 0){
+            H = 0;
+        }else if(channelMax == 'R'){
+            H = (60 * Math.abs(((G-B)/delta) % 6));
+        }else if(channelMax == 'G'){
+            H = (60 * Math.abs(((B-R)/delta) + 2));
+        }else if(channelMax == 'B'){
+            H = (60 * Math.abs(((R-G)/delta) + 4));
+        }
+        
+        //calculate Lightness 
+        L = (Cmax + Cmin)/2;
+        
+        //calculate Saturation 
+        if(delta == 0){
+            S = 0;
+        }else{
+            S = (float) Math.floor(delta / (1 - Math.abs(2*L - 1)));
+        }
+        
+        //System.out.println("H: "+(float)Math.floor(H/180)+" S: "+S+" L: "+L);
+        
+        return new Color((float)Math.floor(H/180), S, L);
     }
     
     public double max(double a, double b, double c){

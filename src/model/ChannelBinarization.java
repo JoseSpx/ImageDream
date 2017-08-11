@@ -3,15 +3,15 @@ package model;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class Binarizacion {
+public class ChannelBinarization {
     
     private BufferedImage image;
 
-    public Binarizacion(BufferedImage image) {
+    public ChannelBinarization(BufferedImage image) {
         this.image = image;
     }
     
-    public BufferedImage apply(int umbral){
+    public BufferedImage apply(int umbralRed, int umbralGreen,int umbralBlue){
         
         int alto = image.getHeight();
         int ancho = image.getWidth();
@@ -28,19 +28,19 @@ public class Binarizacion {
                 green = c.getGreen();
                 blue = c.getBlue();
                 
-                if(red > umbral){
+                if(red > umbralRed){
                     red = 0;
                 }else{
                     red = 255;
                 }
                 
-                if(green > umbral){
+                if(green > umbralGreen){
                     green = 0;
                 }else{
                     green = 255;
                 }
                 
-                if(blue > umbral){
+                if(blue > umbralBlue){
                     blue = 0;
                 }else{
                     blue = 255;

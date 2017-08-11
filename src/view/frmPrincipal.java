@@ -187,6 +187,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemSubstract = new javax.swing.JMenuItem();
         itemBinar = new javax.swing.JMenuItem();
         btnLocalBinarization = new javax.swing.JMenuItem();
+        menuChannelBinarization = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         itemContrste = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
@@ -383,7 +384,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         itemBinar.setBackground(new java.awt.Color(102, 102, 102));
         itemBinar.setForeground(new java.awt.Color(255, 255, 255));
-        itemBinar.setText("Binarizacion");
+        itemBinar.setText("Binarizacion Global");
         itemBinar.setOpaque(true);
         itemBinar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,6 +403,17 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menuSubstractImage.add(btnLocalBinarization);
+
+        menuChannelBinarization.setBackground(new java.awt.Color(102, 102, 102));
+        menuChannelBinarization.setForeground(new java.awt.Color(255, 255, 255));
+        menuChannelBinarization.setText("Binarizacion por Canales");
+        menuChannelBinarization.setOpaque(true);
+        menuChannelBinarization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuChannelBinarizationActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(menuChannelBinarization);
 
         itemPseudoColor.setBackground(new java.awt.Color(102, 102, 102));
         itemPseudoColor.setForeground(new java.awt.Color(255, 255, 255));
@@ -700,7 +712,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void itemBinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBinarActionPerformed
         if(modeRGB){
-            BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply();
+            BufferedImage bufferedImage = new Binarizacion(frmPrincipal.bufferedActualImage).apply(130);
             frmPrincipal.bufferedActualImage = bufferedImage;
             bufferedActualImageCopy = bufferedImage;
             lblImageActual.setIcon(new ImageIcon(bufferedImage)); 
@@ -798,6 +810,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblImageActual.setIcon(new ImageIcon(bi));
     }//GEN-LAST:event_itemContrsteActionPerformed
 
+    private void menuChannelBinarizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChannelBinarizationActionPerformed
+        changePane(new PaneChannelBinarization());
+    }//GEN-LAST:event_menuChannelBinarizationActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -844,6 +860,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel lblImageActual;
     private javax.swing.JLabel lblOriginalImage;
     private javax.swing.JMenuBar menuBarPrincipal;
+    private javax.swing.JMenuItem menuChannelBinarization;
     private javax.swing.JMenu menuConfiguracion;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuItemHSI;
