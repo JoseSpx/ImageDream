@@ -14,15 +14,20 @@ public class FilterAverage {
     
     public BufferedImage applyToRGB(int [] box){
         
-        double b0 = box[0] / 9.0;
-        double b1 = box[1] / 9.0;
-        double b2 = box[2] / 9.0;
-        double b3 = box[3] / 9.0;
-        double b4 = box[4] / 9.0;
-        double b5 = box[5] / 9.0;
-        double b6 = box[6] / 9.0;
-        double b7 = box[7] / 9.0;
-        double b8 = box[8] / 9.0;
+        double suma = 0;
+        for (int i = 0; i < box.length; i++) {
+            suma += box[i];
+        }
+        
+        double b0 = box[0] / suma;
+        double b1 = box[1] / suma;
+        double b2 = box[2] / suma;
+        double b3 = box[3] / suma;
+        double b4 = box[4] / suma;
+        double b5 = box[5] / suma;
+        double b6 = box[6] / suma;
+        double b7 = box[7] / suma;
+        double b8 = box[8] / suma;
         
         int width = image.getWidth();
         int height = image.getHeight();

@@ -11,8 +11,8 @@ public class ImageDream {
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
         //changeLookAndFeel();
-        new frmPrincipal("C:\\Users\\Jose sp\\Pictures\\usherSmall.jpg").setVisible(true);
-        //new frmStart().setVisible(true);
+        //new frmPrincipal("C:\\Users\\Jose sp\\Pictures\\usherSmall.jpg").setVisible(true);
+        new frmStart().setVisible(true);
     }
     
     public static void changeLookAndFeel(){
@@ -22,9 +22,5 @@ public class ImageDream {
             Logger.getLogger(frmStart.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    //binarizacion por canales, promedo e histograma
-    
-    //binarizacion local : dividirlo en 4 y aplicarle acada unou
     
 }

@@ -14,8 +14,12 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Binarizacion;
 import model.BinarizationByHistogram;
+import model.BorderOfPrewit;
+import model.BorderOfRoberts;
+import model.BorderOfSobel;
 import model.CMYK;
 import model.Contrast;
+import model.FilterMediana;
 import model.HSI;
 import model.LocalBinarization;
 import model.MyImage;
@@ -192,8 +196,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemBinarizationByHistogram = new javax.swing.JMenuItem();
         itemPseudoColor = new javax.swing.JMenuItem();
         itemContrste = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         itemFilterAverage = new javax.swing.JMenuItem();
+        itemFilterMediana = new javax.swing.JMenuItem();
+        itemRange = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
         menuModo = new javax.swing.JMenu();
         itemMenuCMYK = new javax.swing.JMenuItem();
@@ -212,7 +221,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
         setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(38, 50, 56));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -462,6 +473,39 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         menuSubstractImage.add(itemContrste);
 
+        jMenuItem2.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem2.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem2.setText("Borde de Robert");
+        jMenuItem2.setOpaque(true);
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(jMenuItem2);
+
+        jMenuItem3.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem3.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem3.setText("Borde de Prewit");
+        jMenuItem3.setOpaque(true);
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(jMenuItem3);
+
+        jMenuItem4.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem4.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem4.setText("Borde de Sobel");
+        jMenuItem4.setOpaque(true);
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(jMenuItem4);
+
         jMenu4.setBackground(new java.awt.Color(102, 102, 102));
         jMenu4.setBorder(null);
         jMenu4.setForeground(new java.awt.Color(255, 255, 255));
@@ -479,6 +523,28 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(itemFilterAverage);
+
+        itemFilterMediana.setBackground(new java.awt.Color(102, 102, 102));
+        itemFilterMediana.setForeground(new java.awt.Color(255, 255, 255));
+        itemFilterMediana.setText("Mediana");
+        itemFilterMediana.setOpaque(true);
+        itemFilterMediana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFilterMedianaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemFilterMediana);
+
+        itemRange.setBackground(new java.awt.Color(102, 102, 102));
+        itemRange.setForeground(new java.awt.Color(255, 255, 255));
+        itemRange.setText("Rango");
+        itemRange.setOpaque(true);
+        itemRange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRangeActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemRange);
 
         menuSubstractImage.add(jMenu4);
 
@@ -846,8 +912,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLocalBinarizationActionPerformed
 
     private void itemContrsteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContrsteActionPerformed
-        BufferedImage bi = new Contrast(bufferedActualImage).apply();
+        BufferedImage bi = new Contrast(bufferedActualImage).contrast();
         lblImageActual.setIcon(new ImageIcon(bi));
+        frmPrincipal.bufferedActualImage = bi;
     }//GEN-LAST:event_itemContrsteActionPerformed
 
     private void menuChannelBinarizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChannelBinarizationActionPerformed
@@ -870,6 +937,38 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void itemFilterAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFilterAverageActionPerformed
         changePane(new PaneFilterAverage());
     }//GEN-LAST:event_itemFilterAverageActionPerformed
+
+    private void itemFilterMedianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFilterMedianaActionPerformed
+        BufferedImage image = null;
+        if(frmPrincipal.modeRGB){
+            image = new FilterMediana(frmPrincipal.bufferedActualImage).applyToRGB();
+        }
+        else if(frmPrincipal.modeGray){
+            image = new FilterMediana(frmPrincipal.bufferedActualImage).applyToGray();
+        }
+        bufferedActualImageCopy = bufferedActualImage;
+        bufferedActualImage = image;
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_itemFilterMedianaActionPerformed
+
+    private void itemRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRangeActionPerformed
+        changePane(new PaneFilterRange());
+    }//GEN-LAST:event_itemRangeActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        BufferedImage image = new BorderOfRoberts(frmPrincipal.bufferedActualImage).apply();
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        BufferedImage image = new BorderOfPrewit(bufferedActualImage).apply();
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        BufferedImage image = new BorderOfSobel(bufferedActualImage).apply();
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     class ListenerKey implements KeyListener{
 
@@ -905,8 +1004,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemFileOpen;
     private javax.swing.JMenuItem itemFileSaveAs;
     private javax.swing.JMenuItem itemFilterAverage;
+    private javax.swing.JMenuItem itemFilterMediana;
     private javax.swing.JMenuItem itemMenuCMYK;
     private javax.swing.JMenuItem itemPseudoColor;
+    private javax.swing.JMenuItem itemRange;
     private javax.swing.JMenuItem itemSubstract;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -914,6 +1015,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
