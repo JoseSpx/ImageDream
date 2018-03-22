@@ -6,6 +6,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -748,21 +752,28 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuBarPrincipalMouseDragged
 
     private void itemFileSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileSaveAsActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int save = chooser.showSaveDialog(null);
-        if(save == JFileChooser.APPROVE_OPTION){
+        try {
+            /*JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int save = chooser.showSaveDialog(null);
+            if(save == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
             int numberOfChannels = this.originalImage.getNumberOfchannels();
             if( numberOfChannels == 3){
-                MyImage.guardarImagen(this.originalImage.getMatrizImg_R(),
-                        this.originalImage.getMatrizImg_G(),this.originalImage.getMatrizImg_B(),
-                        file.getAbsolutePath());
+            MyImage.guardarImagen(this.originalImage.getMatrizImg_R(),
+            this.originalImage.getMatrizImg_G(),this.originalImage.getMatrizImg_B(),
+            file.getAbsolutePath());
             }else{
-                MyImage.guardarImagen(this.originalImage.getMatrizImg(),
-                        file.getPath());
+            MyImage.guardarImagen(this.originalImage.getMatrizImg(),
+            file.getPath());
             }
+            }*/
+            
+            ImageIO.write(bufferedActualImage,"jpg",new File("C:\\Users\\Jose sp\\Desktop\\img.jpg"));
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_itemFileSaveAsActionPerformed
 
     private void radioPromedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPromedioActionPerformed

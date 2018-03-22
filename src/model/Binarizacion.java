@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 public class Binarizacion {
     
@@ -10,56 +11,43 @@ public class Binarizacion {
     public Binarizacion(BufferedImage image) {
         this.image = image;
     }
-    
+
+       
     public BufferedImage apply(int umbral){
         
-        int alto = image.getHeight();
-        int ancho = image.getWidth();
+        int width = image.getWidth();
+        int height = image.getHeight();
         
-        int red, green, blue;
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster newImageRaster = newImage.getRaster();
         
-        Color [][] colors = new Color[alto][ancho];
+        Color color;
+        int colorRed, colorBlue, colorGreen;
+        int sum;
         
-        for (int j = 0; j < alto; j++) {
-            for (int i = 0; i < ancho; i++) {
-                int srcPixel = image.getRGB(i, j);
-                Color c = new Color(srcPixel);
-                red = c.getRed();
-                green = c.getGreen();
-                blue = c.getBlue();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                color = new Color(image.getRGB(j, i));
                 
-                if(red >= umbral){
-                    red = 0;
-                }else{
-                    red = 255;
+                colorRed = color.getRed();
+                colorGreen = color.getGreen();
+                colorBlue = color.getBlue();
+                
+                sum = colorRed + colorGreen + colorBlue;
+                sum /= 3;
+                
+                if(sum > umbral){
+                    newImageRaster.setSample(j, i, 0, 255);
                 }
-                
-                if(green >= umbral){
-                    green = 0;
-                }else{
-                    green = 255;
+                else{
+                    newImageRaster.setSample(j, i, 0, 0);
                 }
-                
-                if(blue >= umbral){
-                    blue = 0;
-                }else{
-                    blue = 255;
-                }
-                
-                colors[j][i] = new Color(red,green,blue,255);
             }
         }
-        
-        BufferedImage newImage = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
-        
-        for (int i = 0; i < alto; i++) {
-            for (int j = 0; j < ancho; j++) {
-                newImage.setRGB(j, i, colors[i][j].getRGB());
-            }
-        }
-        
+
+        newImage.setData(newImageRaster);
         return newImage;
-        
     }
+    
     
 }
