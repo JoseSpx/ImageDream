@@ -21,7 +21,9 @@ Software para edicion de imagenes en formato PNG o JPG
 15. Cambiar imagen a CMYK
 16. Cambiar imagen a HSI
 
+![github1](https://raw.githubusercontent.com/JoseSp95/ImageDream/master/github1.PNG)
 
+![github2](https://raw.githubusercontent.com/JoseSp95/ImageDream/master/github2.PNG)
 
 
 
