@@ -23,11 +23,13 @@ import model.BorderOfRoberts;
 import model.BorderOfSobel;
 import model.CMYK;
 import model.Contrast;
+import model.Erosion;
 import model.FilterMediana;
 import model.HSI;
 import model.LocalBinarization;
 import model.MyImage;
 import model.PseudoColor;
+import model.Skeleton;
 
 public class frmPrincipal extends javax.swing.JFrame {
 
@@ -207,6 +209,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         itemFilterAverage = new javax.swing.JMenuItem();
         itemFilterMediana = new javax.swing.JMenuItem();
         itemRange = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         menuReset = new javax.swing.JMenuItem();
         menuModo = new javax.swing.JMenu();
         itemMenuCMYK = new javax.swing.JMenuItem();
@@ -551,6 +555,28 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenu4.add(itemRange);
 
         menuSubstractImage.add(jMenu4);
+
+        jMenuItem5.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem5.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem5.setText("Erosion");
+        jMenuItem5.setOpaque(true);
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(jMenuItem5);
+
+        jMenuItem6.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuItem6.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuItem6.setText("Skeleton");
+        jMenuItem6.setOpaque(true);
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        menuSubstractImage.add(jMenuItem6);
 
         menuReset.setBackground(new java.awt.Color(102, 102, 102));
         menuReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -981,6 +1007,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblImageActual.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        BufferedImage image = new Erosion().execute(bufferedActualImage);
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        BufferedImage image = new Skeleton(bufferedActualImage).apply();
+        lblImageActual.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     class ListenerKey implements KeyListener{
 
         @Override
@@ -1029,6 +1065,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
